@@ -228,29 +228,29 @@ export const QuestionnaireModel2 = () => {
               <div className="grid grid-cols-1 gap-5">
                 <div>
                   <label className={labelClass}>Nome completo *</label>
-                  <input type="text" name="nome" required className={inputClass} placeholder="Seu nome completo" defaultValue={nomePreenchido} />
+                  <input type="text" name="nome" className={inputClass} placeholder="Seu nome completo" defaultValue={nomePreenchido} />
                 </div>
                 <div>
                   <label className={labelClass}>E-mail *</label>
-                  <input type="email" name="email" required className={inputClass} placeholder="seu@email.com" />
+                  <input type="email" name="email" className={inputClass} placeholder="seu@email.com" />
                 </div>
                 <div>
                   <label className={labelClass}>WhatsApp *</label>
-                  <input type="tel" name="whatsapp" required className={inputClass} placeholder="(00) 00000-0000" />
+                  <input type="tel" name="whatsapp" className={inputClass} placeholder="(00) 00000-0000" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Data de nascimento *</label>
-                  <input type="date" name="data_nascimento" required className={`${inputClass} [color-scheme:dark]`} />
+                  <input type="date" name="data_nascimento" className={`${inputClass} [color-scheme:dark]`} />
                 </div>
                 <div>
                   <label className={labelClass}>Idade *</label>
-                  <input type="number" name="idade" required className={inputClass} placeholder="25" />
+                  <input type="number" name="idade" className={inputClass} placeholder="25" />
                 </div>
                 <div>
                   <label className={labelClass}>Sexo biológico *</label>
-                  <select name="sexo" required className={selectClass}>
+                  <select name="sexo" className={selectClass}>
                     <option value="" className="bg-black">Selecione</option>
                     <option value="masculino" className="bg-black">Masculino</option>
                     <option value="feminino" className="bg-black">Feminino</option>
@@ -258,15 +258,15 @@ export const QuestionnaireModel2 = () => {
                 </div>
                 <div>
                   <label className={labelClass}>Profissão *</label>
-                  <input type="text" name="profissao" required className={inputClass} placeholder="Sua profissão" />
+                  <input type="text" name="profissao" className={inputClass} placeholder="Sua profissão" />
                 </div>
                 <div>
                   <label className={labelClass}>Altura (cm) *</label>
-                  <input type="number" name="altura" required className={inputClass} placeholder="170" />
+                  <input type="number" name="altura" className={inputClass} placeholder="170" />
                 </div>
                 <div>
                   <label className={labelClass}>Peso atual (kg) *</label>
-                  <input type="number" name="peso" required step="0.1" className={inputClass} placeholder="70.0" />
+                  <input type="number" name="peso" step="0.1" className={inputClass} placeholder="70.0" />
                 </div>
                 <div className="col-span-2">
                   <label className={labelClass}>Peso desejado (kg)</label>
@@ -275,7 +275,7 @@ export const QuestionnaireModel2 = () => {
               </div>
               <div>
                 <label className={labelClass}>Qual seu principal objetivo? *</label>
-                <textarea name="objetivo_principal" required rows={3} className={inputClass} placeholder="Descreva seu objetivo..." />
+                <textarea name="objetivo_principal" rows={3} className={inputClass} placeholder="Descreva seu objetivo..." />
               </div>
             </div>
           </section>
