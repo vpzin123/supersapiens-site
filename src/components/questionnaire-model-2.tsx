@@ -1,11 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { Send, Loader2, ChevronRight, ChevronLeft, User, Activity, Stethoscope, Apple, ClipboardList, Zap } from 'lucide-react';
 
 export const QuestionnaireModel2 = () => {
-  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [activeSection, setActiveSection] = useState(0);
@@ -45,11 +43,12 @@ export const QuestionnaireModel2 = () => {
       });
 
       if (response.ok) {
-        router.push('/obrigado');
+        window.location.href = '/obrigado';
       } else {
         setError('Erro ao enviar. Tente novamente.');
       }
-    } catch {
+    } catch (err) {
+      console.error('Erro:', err);
       setError('Erro ao enviar. Tente novamente.');
     } finally {
       setIsSubmitting(false);
