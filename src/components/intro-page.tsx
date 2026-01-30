@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronRight, Zap } from 'lucide-react';
+import Link from 'next/link';
+import { ChevronRight, Zap, Menu, X } from 'lucide-react';
 
 export const IntroPage = () => {
   const router = useRouter();
@@ -10,7 +11,19 @@ export const IntroPage = () => {
   const [phase, setPhase] = useState(0);
   const [showInput, setShowInput] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const menuItems = [
+    'PEPTÍDEOS',
+    'ESTEROIDES',
+    'SUPLEMENTOS',
+    'FITOTERÁPICOS',
+    'CALCULADORAS',
+    'HABITS TRACKER',
+    'DEEPSCIENCE',
+    'NEWS'
+  ];
 
   // Sequência de animação inicial
   useEffect(() => {
@@ -160,8 +173,55 @@ export const IntroPage = () => {
       {/* Scan effect overlay */}
       <div className="fixed inset-0 pointer-events-none scan-effect" />
 
+      {/* Header Navigation */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-4 py-3">
+          {/* Desktop Menu */}
+          <nav className="hidden lg:flex items-center justify-center gap-6">
+            {menuItems.map((item) => (
+              <Link
+                key={item}
+                href="/manutencao"
+                className="text-xs font-medium text-neutral-400 hover:text-orange-500 transition-colors tracking-wide"
+              >
+                {item}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden flex items-center justify-between">
+            <span className="text-xs text-neutral-500">MENU</span>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="text-neutral-400 hover:text-orange-500 transition-colors"
+            >
+              {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu Dropdown */}
+        {menuOpen && (
+          <div className="lg:hidden bg-black/95 border-t border-white/5 py-4">
+            <nav className="flex flex-col items-center gap-4">
+              {menuItems.map((item) => (
+                <Link
+                  key={item}
+                  href="/manutencao"
+                  className="text-sm font-medium text-neutral-400 hover:text-orange-500 transition-colors tracking-wide"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        )}
+      </header>
+
       {/* Main Content */}
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 pt-16">
 
         {/* Logo */}
         <div className={`transition-all duration-1000 ${phase >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
