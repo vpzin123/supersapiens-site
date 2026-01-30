@@ -35,6 +35,9 @@ export const QuestionnaireModel2 = () => {
     const form = e.currentTarget;
     const formData = new FormData(form);
 
+    // Debug - mostrar que começou
+    console.log('Iniciando envio...');
+
     try {
       const response = await fetch('https://formspree.io/f/xzdrwvnr', {
         method: 'POST',
@@ -42,14 +45,19 @@ export const QuestionnaireModel2 = () => {
         headers: { Accept: 'application/json' },
       });
 
+      console.log('Response status:', response.status);
+
       if (response.ok) {
-        window.location.href = '/obrigado';
+        console.log('Sucesso! Redirecionando...');
+        window.location.href = '/obrigado/';
       } else {
+        const data = await response.json();
+        console.error('Erro response:', data);
         setError('Erro ao enviar. Tente novamente.');
       }
     } catch (err) {
-      console.error('Erro:', err);
-      setError('Erro ao enviar. Tente novamente.');
+      console.error('Erro catch:', err);
+      setError('Erro de conexão. Verifique sua internet e tente novamente.');
     } finally {
       setIsSubmitting(false);
     }
