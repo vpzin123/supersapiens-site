@@ -1,7 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Send, Loader2, ChevronRight, ChevronLeft, User, Activity, Stethoscope, Apple, ClipboardList, Zap } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Send, Loader2, ChevronRight, ChevronLeft, User, Activity, Stethoscope, Apple, ClipboardList, Zap, AlertCircle } from 'lucide-react';
+
+interface FieldError {
+  field: string;
+  message: string;
+  section: number;
+}
 
 export const QuestionnaireModel2 = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -9,6 +15,9 @@ export const QuestionnaireModel2 = () => {
   const [activeSection, setActiveSection] = useState(0);
   const [loaded, setLoaded] = useState(false);
   const [nomePreenchido, setNomePreenchido] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<FieldError[]>([]);
+  const [showValidationError, setShowValidationError] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     setLoaded(true);
@@ -19,6 +28,74 @@ export const QuestionnaireModel2 = () => {
     }
   }, []);
 
+  // Campos obrigatórios por seção
+  const requiredFields: { [key: number]: { name: string; label: string }[] } = {
+    0: [
+      { name: 'nome', label: 'Nome completo' },
+      { name: 'email', label: 'E-mail' },
+      { name: 'whatsapp', label: 'WhatsApp' },
+      { name: 'data_nascimento', label: 'Data de nascimento' },
+      { name: 'idade', label: 'Idade' },
+      { name: 'sexo', label: 'Sexo biológico' },
+      { name: 'profissao', label: 'Profissão' },
+      { name: 'altura', label: 'Altura' },
+      { name: 'peso', label: 'Peso atual' },
+      { name: 'objetivo_principal', label: 'Objetivo principal' },
+    ],
+  };
+
+  // Valida campos de uma seção específica
+  const validateSection = (sectionIndex: number): FieldError[] => {
+    const errors: FieldError[] = [];
+    const fields = requiredFields[sectionIndex] || [];
+
+    if (!formRef.current) return errors;
+    const formData = new FormData(formRef.current);
+
+    fields.forEach(({ name, label }) => {
+      const value = formData.get(name) as string;
+      if (!value || value.trim() === '') {
+        errors.push({ field: name, message: `${label} é obrigatório`, section: sectionIndex });
+      }
+    });
+
+    // Validação extra para e-mail
+    if (sectionIndex === 0) {
+      const email = formData.get('email') as string;
+      if (email && !email.includes('@')) {
+        errors.push({ field: 'email', message: 'E-mail inválido', section: 0 });
+      }
+    }
+
+    return errors;
+  };
+
+  // Valida todas as seções
+  const validateAllSections = (): FieldError[] => {
+    let allErrors: FieldError[] = [];
+    Object.keys(requiredFields).forEach((key) => {
+      const sectionErrors = validateSection(parseInt(key));
+      allErrors = [...allErrors, ...sectionErrors];
+    });
+    return allErrors;
+  };
+
+  // Verifica se um campo específico tem erro
+  const hasError = (fieldName: string): boolean => {
+    return fieldErrors.some(e => e.field === fieldName);
+  };
+
+  // Pega mensagem de erro de um campo
+  const getErrorMessage = (fieldName: string): string => {
+    const error = fieldErrors.find(e => e.field === fieldName);
+    return error ? error.message : '';
+  };
+
+  // Limpa erro de um campo quando ele é preenchido
+  const clearFieldError = (fieldName: string) => {
+    setFieldErrors(prev => prev.filter(e => e.field !== fieldName));
+  };
+
   const sections = [
     { id: 'dados', icon: User, title: 'Dados' },
     { id: 'habitos', icon: Activity, title: 'Hábitos' },
@@ -27,16 +104,49 @@ export const QuestionnaireModel2 = () => {
     { id: 'recordatorio', icon: ClipboardList, title: '24h' },
   ];
 
+  const handleNextSection = () => {
+    const errors = validateSection(activeSection);
+    if (errors.length > 0) {
+      setFieldErrors(errors);
+      setShowValidationError(true);
+      // Scroll para o primeiro erro
+      const firstErrorField = document.querySelector(`[name="${errors[0].field}"]`);
+      if (firstErrorField) {
+        firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+    setFieldErrors([]);
+    setShowValidationError(false);
+    setActiveSection(activeSection + 1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Valida todas as seções antes de enviar
+    const allErrors = validateAllSections();
+    if (allErrors.length > 0) {
+      setFieldErrors(allErrors);
+      setShowValidationError(true);
+      // Vai para a primeira seção com erro
+      const firstErrorSection = allErrors[0].section;
+      setActiveSection(firstErrorSection);
+      setTimeout(() => {
+        const firstErrorField = document.querySelector(`[name="${allErrors[0].field}"]`);
+        if (firstErrorField) {
+          firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100);
+      return;
+    }
+
     setIsSubmitting(true);
     setError('');
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-
-    // Debug - mostrar que começou
-    console.log('Iniciando envio...');
 
     try {
       const response = await fetch('https://formspree.io/f/xzdrwvnr', {
@@ -45,18 +155,12 @@ export const QuestionnaireModel2 = () => {
         headers: { Accept: 'application/json' },
       });
 
-      console.log('Response status:', response.status);
-
       if (response.ok) {
-        console.log('Sucesso! Redirecionando...');
         window.location.href = '/obrigado/';
       } else {
-        const data = await response.json();
-        console.error('Erro response:', data);
         setError('Erro ao enviar. Tente novamente.');
       }
-    } catch (err) {
-      console.error('Erro catch:', err);
+    } catch {
       setError('Erro de conexão. Verifique sua internet e tente novamente.');
     } finally {
       setIsSubmitting(false);
@@ -64,9 +168,22 @@ export const QuestionnaireModel2 = () => {
   };
 
   const inputClass = "w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-neutral-500 focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 focus:bg-white/10 transition-all text-base";
+  const inputErrorClass = "w-full bg-red-500/5 border border-red-500/50 rounded-xl px-4 py-3.5 text-white placeholder-neutral-500 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition-all text-base";
   const labelClass = "block text-sm font-medium text-neutral-300 mb-2";
   const selectClass = "w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 focus:bg-white/10 transition-all appearance-none cursor-pointer text-base";
+  const selectErrorClass = "w-full bg-red-500/5 border border-red-500/50 rounded-xl px-4 py-3.5 text-white focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition-all appearance-none cursor-pointer text-base";
   const cardClass = "space-y-5 bg-gradient-to-br from-white/[0.05] to-transparent border border-white/10 rounded-2xl p-5 md:p-6 backdrop-blur-sm relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-orange-500/5 before:to-transparent before:pointer-events-none";
+
+  // Componente de erro inline
+  const FieldErrorMessage = ({ fieldName }: { fieldName: string }) => {
+    if (!hasError(fieldName)) return null;
+    return (
+      <p className="text-red-400 text-xs mt-1 flex items-center gap-1">
+        <AlertCircle className="w-3 h-3" />
+        {getErrorMessage(fieldName)}
+      </p>
+    );
+  };
 
   return (
     <main className="min-h-screen bg-black text-white overflow-hidden">
@@ -216,7 +333,20 @@ export const QuestionnaireModel2 = () => {
 
       {/* Form */}
       <div className={`relative z-10 max-w-2xl mx-auto px-5 py-8 transition-all duration-700 delay-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Alerta de validação global */}
+        {showValidationError && fieldErrors.length > 0 && (
+          <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 mb-6 flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-red-400 font-medium">Preencha os campos obrigatórios</p>
+              <p className="text-red-400/70 text-sm mt-1">
+                {fieldErrors.length} {fieldErrors.length === 1 ? 'campo precisa' : 'campos precisam'} ser preenchido{fieldErrors.length === 1 ? '' : 's'}
+              </p>
+            </div>
+          </div>
+        )}
+
+        <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
 
           {/* DADOS PESSOAIS */}
           <section className={activeSection === 0 ? 'block' : 'hidden'}>
@@ -228,45 +358,54 @@ export const QuestionnaireModel2 = () => {
               <div className="grid grid-cols-1 gap-5">
                 <div>
                   <label className={labelClass}>Nome completo *</label>
-                  <input type="text" name="nome" className={inputClass} placeholder="Seu nome completo" defaultValue={nomePreenchido} />
+                  <input type="text" name="nome" className={hasError('nome') ? inputErrorClass : inputClass} placeholder="Seu nome completo" defaultValue={nomePreenchido} onChange={() => clearFieldError('nome')} />
+                  <FieldErrorMessage fieldName="nome" />
                 </div>
                 <div>
                   <label className={labelClass}>E-mail *</label>
-                  <input type="email" name="email" className={inputClass} placeholder="seu@email.com" />
+                  <input type="email" name="email" className={hasError('email') ? inputErrorClass : inputClass} placeholder="seu@email.com" onChange={() => clearFieldError('email')} />
+                  <FieldErrorMessage fieldName="email" />
                 </div>
                 <div>
                   <label className={labelClass}>WhatsApp *</label>
-                  <input type="tel" name="whatsapp" className={inputClass} placeholder="(00) 00000-0000" />
+                  <input type="tel" name="whatsapp" className={hasError('whatsapp') ? inputErrorClass : inputClass} placeholder="(00) 00000-0000" onChange={() => clearFieldError('whatsapp')} />
+                  <FieldErrorMessage fieldName="whatsapp" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Data de nascimento *</label>
-                  <input type="date" name="data_nascimento" className={`${inputClass} [color-scheme:dark]`} />
+                  <input type="date" name="data_nascimento" className={`${hasError('data_nascimento') ? inputErrorClass : inputClass} [color-scheme:dark]`} onChange={() => clearFieldError('data_nascimento')} />
+                  <FieldErrorMessage fieldName="data_nascimento" />
                 </div>
                 <div>
                   <label className={labelClass}>Idade *</label>
-                  <input type="number" name="idade" className={inputClass} placeholder="25" />
+                  <input type="number" name="idade" className={hasError('idade') ? inputErrorClass : inputClass} placeholder="25" onChange={() => clearFieldError('idade')} />
+                  <FieldErrorMessage fieldName="idade" />
                 </div>
                 <div>
                   <label className={labelClass}>Sexo biológico *</label>
-                  <select name="sexo" className={selectClass}>
+                  <select name="sexo" className={hasError('sexo') ? selectErrorClass : selectClass} onChange={() => clearFieldError('sexo')}>
                     <option value="" className="bg-black">Selecione</option>
                     <option value="masculino" className="bg-black">Masculino</option>
                     <option value="feminino" className="bg-black">Feminino</option>
                   </select>
+                  <FieldErrorMessage fieldName="sexo" />
                 </div>
                 <div>
                   <label className={labelClass}>Profissão *</label>
-                  <input type="text" name="profissao" className={inputClass} placeholder="Sua profissão" />
+                  <input type="text" name="profissao" className={hasError('profissao') ? inputErrorClass : inputClass} placeholder="Sua profissão" onChange={() => clearFieldError('profissao')} />
+                  <FieldErrorMessage fieldName="profissao" />
                 </div>
                 <div>
                   <label className={labelClass}>Altura (cm) *</label>
-                  <input type="number" name="altura" className={inputClass} placeholder="170" />
+                  <input type="number" name="altura" className={hasError('altura') ? inputErrorClass : inputClass} placeholder="170" onChange={() => clearFieldError('altura')} />
+                  <FieldErrorMessage fieldName="altura" />
                 </div>
                 <div>
                   <label className={labelClass}>Peso atual (kg) *</label>
-                  <input type="number" name="peso" step="0.1" className={inputClass} placeholder="70.0" />
+                  <input type="number" name="peso" step="0.1" className={hasError('peso') ? inputErrorClass : inputClass} placeholder="70.0" onChange={() => clearFieldError('peso')} />
+                  <FieldErrorMessage fieldName="peso" />
                 </div>
                 <div className="col-span-2">
                   <label className={labelClass}>Peso desejado (kg)</label>
@@ -275,7 +414,8 @@ export const QuestionnaireModel2 = () => {
               </div>
               <div>
                 <label className={labelClass}>Qual seu principal objetivo? *</label>
-                <textarea name="objetivo_principal" rows={3} className={inputClass} placeholder="Descreva seu objetivo..." />
+                <textarea name="objetivo_principal" rows={3} className={hasError('objetivo_principal') ? inputErrorClass : inputClass} placeholder="Descreva seu objetivo..." onChange={() => clearFieldError('objetivo_principal')} />
+                <FieldErrorMessage fieldName="objetivo_principal" />
               </div>
             </div>
           </section>
@@ -630,7 +770,10 @@ export const QuestionnaireModel2 = () => {
           <div className="flex items-center justify-between pt-4">
             <button
               type="button"
-              onClick={() => setActiveSection(Math.max(0, activeSection - 1))}
+              onClick={() => {
+                setActiveSection(Math.max(0, activeSection - 1));
+                setShowValidationError(false);
+              }}
               className={`flex items-center gap-2 px-5 py-3 rounded-xl border border-white/20 text-neutral-300 hover:bg-white/5 transition-all ${
                 activeSection === 0 ? 'opacity-0 pointer-events-none' : ''
               }`}
@@ -642,7 +785,7 @@ export const QuestionnaireModel2 = () => {
             {activeSection < 4 ? (
               <button
                 type="button"
-                onClick={() => setActiveSection(activeSection + 1)}
+                onClick={handleNextSection}
                 className="flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-400 text-black font-semibold rounded-xl transition-all shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40"
               >
                 Próximo
