@@ -238,7 +238,7 @@ export const IntroPage = () => {
 
         {/* Tagline 1 */}
         <div className={`mt-8 transition-all duration-1000 ${phase >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
-          <p className="text-orange-500/80 text-sm md:text-base font-medium tracking-wide uppercase text-center">"NEVER BET AGAINST TECHNOLOGY"</p>
+          <p className="text-orange-500/80 text-sm md:text-base font-medium tracking-wide uppercase text-center">"NEVER BET AGAINST SCIENCE"</p>
         </div>
 
         {/* ATP - Adenosina Trifosfato - A molécula da energia */}
