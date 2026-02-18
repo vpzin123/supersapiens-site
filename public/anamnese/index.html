@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anamnese Nutricional</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    [x-cloak] { display: none !important; }
+    .step-hidden { display: none; }
+    .step-active { display: block; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #059669; cursor: pointer; }
+    input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: #059669; cursor: pointer; border: none; }
+    input[type="range"] { -webkit-appearance: none; height: 6px; border-radius: 3px; background: #d1d5db; outline: none; }
+    .tag-input-container { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px; border: 1px solid #d1d5db; border-radius: 8px; min-height: 42px; cursor: text; background: white; }
+    .tag-input-container:focus-within { border-color: #059669; box-shadow: 0 0 0 3px rgba(5,150,105,0.1); }
+    .tag-input-container .tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; background: #d1fae5; color: #065f46; border-radius: 9999px; font-size: 0.875rem; }
+    .tag-input-container .tag button { cursor: pointer; font-weight: bold; color: #065f46; }
+    .tag-input-container input { border: none; outline: none; flex: 1; min-width: 120px; font-size: 0.875rem; }
+    .cynefin-badge { transition: all 0.3s ease; }
+    @media (max-width: 640px) {
+      .progress-step span { display: none; }
+      .progress-step { padding: 0.25rem 0.5rem; }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        </div>
+        <div>
+          <h1 class="text-lg font-bold text-gray-900">Anamnese Nutricional</h1>
+          <p class="text-xs text-gray-500">Preencha com calma e atencao</p>
+        </div>
+      </div>
+      <!-- Cynefin Badge (hidden — data only) -->
+      <div id="cynefin-badge" style="display:none"></div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="max-w-3xl mx-auto px-4 pb-3">
+      <div class="flex gap-1 overflow-x-auto" id="progress-bar">
+        <button onclick="goToStep(0)" class="progress-step flex-1 min-w-0 text-center py-1.5 px-2 rounded-md text-xs font-medium bg-emerald-600 text-white transition-colors" data-step="0">
+          <span>Identidade</span><span class="sm:hidden">1</span>
+        </button>
+        <button onclick="goToStep(1)" class="progress-step flex-1 min-w-0 text-center py-1.5 px-2 rounded-md text-xs font-medium bg-gray-200 text-gray-600 transition-colors" data-step="1">
+          <span>Corpo</span>
+        </button>
+        <button onclick="goToStep(2)" class="progress-step flex-1 min-w-0 text-center py-1.5 px-2 rounded-md text-xs font-medium bg-gray-200 text-gray-600 transition-colors" data-step="2">
+          <span>Objetivo</span>
+        </button>
+        <button onclick="goToStep(3)" class="progress-step flex-1 min-w-0 text-center py-1.5 px-2 rounded-md text-xs font-medium bg-gray-200 text-gray-600 transition-colors" data-step="3">
+          <span>Saude</span>
+        </button>
+        <button onclick="goToStep(4)" class="progress-step flex-1 min-w-0 text-center py-1.5 px-2 rounded-md text-xs font-medium bg-gray-200 text-gray-600 transition-colors" data-step="4">
+          <span>Treino</span>
+        </button>
+        <button onclick="goToStep(5)" class="progress-step flex-1 min-w-0 text-center py-1.5 px-2 rounded-md text-xs font-medium bg-gray-200 text-gray-600 transition-colors" data-step="5">
+          <span>Rotina</span>
+        </button>
+        <button onclick="goToStep(6)" class="progress-step flex-1 min-w-0 text-center py-1.5 px-2 rounded-md text-xs font-medium bg-gray-200 text-gray-600 transition-colors" data-step="6">
+          <span>Preferencias</span>
+        </button>
+        <button onclick="goToStep(7)" class="progress-step flex-1 min-w-0 text-center py-1.5 px-2 rounded-md text-xs font-medium bg-gray-200 text-gray-600 transition-colors" data-step="7">
+          <span>Habitos</span>
+        </button>
+        <button onclick="goToStep(8)" class="progress-step flex-1 min-w-0 text-center py-1.5 px-2 rounded-md text-xs font-medium bg-gray-200 text-gray-600 transition-colors" data-step="8">
+          <span>Dieta</span>
+        </button>
+        <button onclick="goToStep(9)" class="progress-step flex-1 min-w-0 text-center py-1.5 px-2 rounded-md text-xs font-medium bg-gray-200 text-gray-600 transition-colors" data-step="9">
+          <span>Exames</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Form -->
+  <form id="anamnese-form" action="https://formspree.io/f/mzdagryw" method="POST" class="max-w-3xl mx-auto px-4 py-6" novalidate>
+    <!-- Hidden fields -->
+    <input type="hidden" name="_subject" value="Nova Anamnese Nutricional">
+    <input type="text" name="_gotcha" style="display:none">
+    <input type="hidden" name="cynefin_score" id="cynefin-score-input" value="0">
+    <input type="hidden" name="cynefin_dominio" id="cynefin-domain-input" value="CLEAR">
+    <input type="hidden" name="form_version" value="patient-variable-canvas-v2">
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- BLOCO 1: IDENTIDADE                        -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="step step-active" data-step="0">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">1</div>
+          <h2 class="text-xl font-bold text-gray-900">Identidade</h2>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Nome -->
+          <div>
+            <label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Nome completo *</label>
+            <input type="text" id="nome" name="nome" placeholder="Ex: Maria Silva Santos" required
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+          </div>
+
+          <!-- Data Nascimento (DD/MM/AAAA) -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Data de nascimento *</label>
+            <div class="flex gap-2">
+              <input type="text" id="nasc_dia" maxlength="2" placeholder="DD" required inputmode="numeric" pattern="\d{1,2}"
+                class="w-16 px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm text-center">
+              <span class="self-center text-gray-400">/</span>
+              <input type="text" id="nasc_mes" maxlength="2" placeholder="MM" required inputmode="numeric" pattern="\d{1,2}"
+                class="w-16 px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm text-center">
+              <span class="self-center text-gray-400">/</span>
+              <input type="text" id="nasc_ano" maxlength="4" placeholder="AAAA" required inputmode="numeric" pattern="\d{4}"
+                class="w-24 px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm text-center">
+            </div>
+            <input type="hidden" id="data_nascimento" name="data_nascimento">
+          </div>
+
+          <!-- Sexo Biologico -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Sexo biologico *</label>
+            <div class="flex gap-4">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="sexo_biologico" value="masculino" required class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Masculino</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="sexo_biologico" value="feminino" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Feminino</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Profissao -->
+          <div>
+            <label for="profissao" class="block text-sm font-medium text-gray-700 mb-1">Profissao</label>
+            <input type="text" id="profissao" name="profissao" placeholder="Ex: Engenheiro, Professor..."
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+          </div>
+
+          <!-- Turno de Trabalho -->
+          <div>
+            <label for="turno_trabalho" class="block text-sm font-medium text-gray-700 mb-1">Turno de trabalho *</label>
+            <select id="turno_trabalho" name="turno_trabalho" required
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+              <option value="">Selecione...</option>
+              <option value="diurno">Diurno</option>
+              <option value="noturno">Noturno</option>
+              <option value="rotativo">Rotativo</option>
+              <option value="home_office">Home office</option>
+            </select>
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+            <input type="email" id="email" name="email" placeholder="email@exemplo.com" required
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+          </div>
+
+          <!-- Telefone -->
+          <div>
+            <label for="telefone" class="block text-sm font-medium text-gray-700 mb-1">Telefone / WhatsApp</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999"
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end">
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+          Proximo &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- BLOCO 2: CORPO                             -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="step step-hidden" data-step="1">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">2</div>
+          <h2 class="text-xl font-bold text-gray-900">Corpo</h2>
+        </div>
+
+        <div class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="altura" class="block text-sm font-medium text-gray-700 mb-1">Altura (cm) *</label>
+              <input type="number" id="altura" name="altura_cm" min="100" max="250" placeholder="175" required
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+            </div>
+            <div>
+              <label for="peso" class="block text-sm font-medium text-gray-700 mb-1">Peso atual (kg) *</label>
+              <input type="number" id="peso" name="peso_kg" min="30" max="300" step="0.1" placeholder="80.5" required
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+            </div>
+          </div>
+
+          <div>
+            <label for="peso_desejado" class="block text-sm font-medium text-gray-700 mb-1">Peso desejado (kg)</label>
+            <input type="number" id="peso_desejado" name="peso_desejado_kg" min="30" max="300" step="0.1" placeholder="75.0"
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="bf" class="block text-sm font-medium text-gray-700 mb-1">% Gordura corporal</label>
+              <input type="number" id="bf" name="gordura_corporal_pct" min="3" max="60" step="0.1" placeholder="20.0"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              <p class="text-xs text-gray-400 mt-1">Opcional — caso saiba</p>
+            </div>
+            <div>
+              <label for="circ_abdominal" class="block text-sm font-medium text-gray-700 mb-1">Circ. abdominal (cm)</label>
+              <input type="number" id="circ_abdominal" name="circunferencia_abdominal_cm" min="40" max="200" placeholder="85"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between">
+        <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
+          &larr; Voltar
+        </button>
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+          Proximo &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- BLOCO 3: OBJETIVO                          -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="step step-hidden" data-step="2">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">3</div>
+          <h2 class="text-xl font-bold text-gray-900">Objetivo</h2>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label for="objetivo" class="block text-sm font-medium text-gray-700 mb-1">Objetivo principal *</label>
+            <select id="objetivo" name="objetivo_principal" required
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+              <option value="">Selecione...</option>
+              <option value="emagrecimento">Emagrecimento</option>
+              <option value="hipertrofia">Hipertrofia</option>
+              <option value="recomposicao">Recomposicao corporal</option>
+              <option value="manutencao">Manutencao</option>
+              <option value="saude_geral">Saude geral</option>
+              <option value="performance">Performance esportiva</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Ja fez dieta antes? *</label>
+            <div class="flex gap-4">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="ja_fez_dieta" value="sim" required onchange="toggleDietResult(true)" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Sim</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="ja_fez_dieta" value="nao" onchange="toggleDietResult(false)" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Nao</span>
+              </label>
+            </div>
+          </div>
+
+          <div id="diet-result-container" class="hidden">
+            <label for="resultado_dieta" class="block text-sm font-medium text-gray-700 mb-1">Qual foi o resultado?</label>
+            <select id="resultado_dieta" name="resultado_dieta_anterior"
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+              <option value="">Selecione...</option>
+              <option value="funcionou_manteve">Funcionou e manteve o peso</option>
+              <option value="funcionou_voltou">Funcionou mas o peso voltou</option>
+              <option value="nao_funcionou">Nao funcionou</option>
+            </select>
+            <p id="ioio-alert" class="hidden"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between">
+        <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
+          &larr; Voltar
+        </button>
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+          Proximo &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- BLOCO 4: SAUDE                             -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="step step-hidden" data-step="3">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">4</div>
+          <h2 class="text-xl font-bold text-gray-900">Saude</h2>
+          <span class="text-xs text-gray-400">(marque todas que se aplicam)</span>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Condicoes Metabolicas -->
+          <fieldset>
+            <legend class="text-sm font-semibold text-gray-800 mb-2">Condicoes metabolicas</legend>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="hipertensao" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Hipertensao</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="diabetes_t2" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Diabetes tipo 2</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="diabetes_t1" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Diabetes tipo 1</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="pre_diabetes" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Pre-diabetes</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="colesterol_alto" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Colesterol alto</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="resistencia_insulinica" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Resistencia insulinica</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="gastrite_refluxo" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Gastrite / Refluxo</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="doenca_renal" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Doenca renal</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="gota" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Gota</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="nenhuma" onchange="uncheckOthers(this, 'condicoes_metabolicas[]')" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Nenhuma</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Hormonal -->
+          <fieldset>
+            <legend class="text-sm font-semibold text-gray-800 mb-2">Hormonal</legend>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="hormonal[]" value="hipotireoidismo_controlado" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Hipotireoidismo (controlado)</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="hormonal[]" value="hipotireoidismo_sem_medicacao" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Hipotireoidismo (sem medicacao)</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="hormonal[]" value="hipertireoidismo" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Hipertireoidismo</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="hormonal[]" value="pcos" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">SOP (PCOS)</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="hormonal[]" value="nenhum" onchange="uncheckOthers(this, 'hormonal[]')" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Nenhum</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Mulheres -->
+          <fieldset>
+            <legend class="text-sm font-semibold text-gray-800 mb-2">Saude feminina</legend>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="saude_feminina[]" value="menopausa" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Menopausa</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="saude_feminina[]" value="gestante" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Gestante</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="saude_feminina[]" value="lactante" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Lactante</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="saude_feminina[]" value="nao_se_aplica" onchange="uncheckOthers(this, 'saude_feminina[]')" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Nao se aplica</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Psiquiatrico -->
+          <fieldset>
+            <legend class="text-sm font-semibold text-gray-800 mb-2">Psiquiatrico</legend>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="psiquiatrico[]" value="ansiedade" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Ansiedade diagnosticada</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="psiquiatrico[]" value="depressao" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Depressao</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="psiquiatrico[]" value="compulsao_alimentar" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Compulsao alimentar</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="psiquiatrico[]" value="ta_ativo" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Transtorno alimentar ATIVO</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="psiquiatrico[]" value="ta_passado" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Transtorno alimentar PASSADO</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="psiquiatrico[]" value="nenhum" onchange="uncheckOthers(this, 'psiquiatrico[]')" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Nenhum</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Substancias -->
+          <fieldset>
+            <legend class="text-sm font-semibold text-gray-800 mb-2">Substancias</legend>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="substancias[]" value="aas_atual" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">AAS atual</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="substancias[]" value="aas_passado" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">AAS passado</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="substancias[]" value="trt_trh" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">TRT/TRH prescrita</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="substancias[]" value="anticoncepcional" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Anticoncepcional</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="substancias[]" value="nenhum" onchange="uncheckOthers(this, 'substancias[]')" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Nenhum</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Medicamentos -->
+          <div>
+            <label for="medicamentos" class="block text-sm font-medium text-gray-700 mb-1">Medicamentos em uso</label>
+            <textarea id="medicamentos" name="medicamentos" rows="2" placeholder="Ex: Losartana 50mg, Metformina 850mg..."
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm"></textarea>
+            <p class="text-xs text-gray-400 mt-1">Liste todos os medicamentos com dosagem.</p>
+          </div>
+
+          <!-- Historico Familiar -->
+          <fieldset>
+            <legend class="text-sm font-semibold text-gray-800 mb-2">Historico familiar</legend>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="historico_familiar[]" value="diabetes" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Diabetes</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="historico_familiar[]" value="hipertensao" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Hipertensao</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="historico_familiar[]" value="obesidade" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Obesidade</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="historico_familiar[]" value="cardiopatia" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Cardiopatia</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" name="historico_familiar[]" value="nenhum" onchange="uncheckOthers(this, 'historico_familiar[]')" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Nenhum</span>
+              </label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="flex justify-between">
+        <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
+          &larr; Voltar
+        </button>
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+          Proximo &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- BLOCO 5: TREINO                            -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="step step-hidden" data-step="4">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">5</div>
+          <h2 class="text-xl font-bold text-gray-900">Treino</h2>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Pratica exercicio? *</label>
+            <div class="flex gap-4">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="pratica_exercicio" value="sim" required onchange="toggleTraining(true)" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Sim</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="pratica_exercicio" value="nao" onchange="toggleTraining(false)" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Nao</span>
+              </label>
+            </div>
+          </div>
+
+          <div id="training-details" class="hidden space-y-4">
+            <p class="text-sm text-gray-500 bg-emerald-50 p-3 rounded-lg">
+              Adicione cada atividade que pratica com os detalhes de frequencia e horario.
+            </p>
+
+            <!-- Dynamic activity list -->
+            <div id="activities-list" class="space-y-3">
+              <!-- Activity 1 (default) -->
+              <div class="activity-card bg-gray-50 rounded-xl p-4 border border-gray-200" data-activity="1">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-sm font-bold text-emerald-700">Atividade 1</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Modalidade *</label>
+                    <select name="atividade_1_modalidade"
+                      class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white"
+                      <option value="">Selecione...</option>
+                      <option value="musculacao">Musculacao</option>
+                      <option value="corrida">Corrida</option>
+                      <option value="natacao">Natacao</option>
+                      <option value="ciclismo">Ciclismo</option>
+                      <option value="crossfit">CrossFit</option>
+                      <option value="artes_marciais">Artes marciais</option>
+                      <option value="yoga_pilates">Yoga / Pilates</option>
+                      <option value="futebol">Futebol</option>
+                      <option value="caminhada">Caminhada</option>
+                      <option value="funcional">Funcional</option>
+                      <option value="danca">Danca</option>
+                      <option value="outro">Outro</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Frequencia semanal *</label>
+                    <select name="atividade_1_frequencia"
+                      class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                      <option value="">Selecione...</option>
+                      <option value="1x">1x</option>
+                      <option value="2x">2x</option>
+                      <option value="3x">3x</option>
+                      <option value="4x">4x</option>
+                      <option value="5x">5x</option>
+                      <option value="6x">6x</option>
+                      <option value="7x">7x</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Duracao</label>
+                    <select name="atividade_1_duracao"
+                      class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                      <option value="">Selecione...</option>
+                      <option value="30min">30 min</option>
+                      <option value="45min">45 min</option>
+                      <option value="1h">1 hora</option>
+                      <option value="1h30">1h30</option>
+                      <option value="2h">2 horas</option>
+                      <option value="2h+">Mais de 2 horas</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Horario</label>
+                    <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="atividade_1_horario" placeholder="06:00"
+                      class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" onclick="addActivity()" id="add-activity-btn"
+              class="text-sm text-emerald-600 hover:text-emerald-800 font-medium flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              Adicionar outra atividade
+            </button>
+
+            <!-- General training fields -->
+            <div class="border-t border-gray-200 pt-4 mt-4">
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label for="nivel" class="block text-sm font-medium text-gray-700 mb-1">Nivel geral de treino</label>
+                  <select id="nivel" name="nivel_treino"
+                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                    <option value="">Selecione...</option>
+                    <option value="iniciante">Iniciante (menos de 6 meses)</option>
+                    <option value="intermediario">Intermediario (6 meses a 2 anos)</option>
+                    <option value="avancado">Avancado (mais de 2 anos)</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="classificacao" class="block text-sm font-medium text-gray-700 mb-1">Como se classifica?</label>
+                  <select id="classificacao" name="classificacao_atleta" onchange="updateCynefin()"
+                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                    <option value="">Selecione...</option>
+                    <option value="recreativo">Recreativo (saude e bem-estar)</option>
+                    <option value="regular">Regular (treino consistente)</option>
+                    <option value="competitivo_amador">Competitivo amador</option>
+                    <option value="atleta_profissional">Atleta profissional</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between">
+        <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
+          &larr; Voltar
+        </button>
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+          Proximo &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- BLOCO 6: ROTINA                            -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="step step-hidden" data-step="5">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">6</div>
+          <h2 class="text-xl font-bold text-gray-900">Rotina</h2>
+        </div>
+
+        <div class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="horario_acorda" class="block text-sm font-medium text-gray-700 mb-1">Horario que acorda *</label>
+              <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" id="horario_acorda" name="horario_acordar" required placeholder="06:00"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+            </div>
+            <div>
+              <label for="horario_dorme" class="block text-sm font-medium text-gray-700 mb-1">Horario que dorme *</label>
+              <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" id="horario_dorme" name="horario_dormir" required placeholder="23:00"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+            </div>
+          </div>
+
+          <div>
+            <label for="qualidade_sono" class="block text-sm font-medium text-gray-700 mb-1">
+              Qualidade do sono * <span id="sono-value" class="text-emerald-600 font-bold">5</span>/10
+            </label>
+            <input type="range" id="qualidade_sono" name="qualidade_sono" min="1" max="10" value="5"
+              oninput="document.getElementById('sono-value').textContent=this.value"
+              class="w-full">
+            <div class="flex justify-between text-xs text-gray-400">
+              <span>Pessimo</span>
+              <span>Excelente</span>
+            </div>
+          </div>
+
+          <div>
+            <label for="refeicoes_dia" class="block text-sm font-medium text-gray-700 mb-1">Refeicoes que consegue fazer por dia *</label>
+            <select id="refeicoes_dia" name="refeicoes_dia" required
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+              <option value="">Selecione...</option>
+              <option value="3">3 refeicoes</option>
+              <option value="4">4 refeicoes</option>
+              <option value="5">5 refeicoes</option>
+              <option value="6">6 refeicoes</option>
+              <option value="7">7 refeicoes</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="cozinha" class="block text-sm font-medium text-gray-700 mb-1">Cozinha em casa? *</label>
+              <select id="cozinha" name="cozinha_em_casa" required
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                <option value="">Selecione...</option>
+                <option value="sempre">Sempre</option>
+                <option value="as_vezes">As vezes</option>
+                <option value="raramente">Raramente</option>
+                <option value="nunca">Nunca</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Usa marmita? *</label>
+              <div class="flex gap-4 mt-1">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="radio" name="usa_marmita" value="sim" required class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                  <span class="text-sm text-gray-700">Sim</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="radio" name="usa_marmita" value="nao" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                  <span class="text-sm text-gray-700">Nao</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="come_fora" class="block text-sm font-medium text-gray-700 mb-1">Come fora *</label>
+              <select id="come_fora" name="come_fora" required
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                <option value="">Selecione...</option>
+                <option value="nunca">Nunca</option>
+                <option value="1_2x_sem">1-2x por semana</option>
+                <option value="3_4x_sem">3-4x por semana</option>
+                <option value="diario">Diariamente</option>
+              </select>
+            </div>
+            <div>
+              <label for="refeicao_dificil" class="block text-sm font-medium text-gray-700 mb-1">Refeicao mais dificil *</label>
+              <select id="refeicao_dificil" name="refeicao_mais_dificil" required
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                <option value="">Selecione...</option>
+                <option value="cafe">Cafe da manha</option>
+                <option value="almoco">Almoco</option>
+                <option value="lanche">Lanche</option>
+                <option value="jantar">Jantar</option>
+                <option value="ceia">Ceia</option>
+                <option value="fds">Final de semana</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between">
+        <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
+          &larr; Voltar
+        </button>
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+          Proximo &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- BLOCO 7: PREFERENCIAS ALIMENTARES          -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="step step-hidden" data-step="6">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">7</div>
+          <h2 class="text-xl font-bold text-gray-900">Preferencias Alimentares</h2>
+          <span class="text-xs text-gray-400">"importancia ABSURDA" — Santiago</span>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Alimentos que AMA -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Alimentos que AMA *</label>
+            <div class="tag-input-container" id="tags-ama-container" onclick="this.querySelector('input').focus()">
+              <input type="text" placeholder="Digite e pressione Enter..." onkeydown="handleTag(event, 'tags-ama')" class="text-sm">
+            </div>
+            <input type="hidden" name="alimentos_ama" id="tags-ama-hidden">
+            <p class="text-xs text-gray-400 mt-1">Ex: arroz, feijao, frango, banana, ovo...</p>
+          </div>
+
+          <!-- Alimentos que NAO gosta -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Alimentos que NAO gosta *</label>
+            <div class="tag-input-container" id="tags-nao-gosta-container" onclick="this.querySelector('input').focus()">
+              <input type="text" placeholder="Digite e pressione Enter..." onkeydown="handleTag(event, 'tags-nao-gosta')" class="text-sm">
+            </div>
+            <input type="hidden" name="alimentos_nao_gosta" id="tags-nao-gosta-hidden">
+          </div>
+
+          <!-- Alimentos PROIBIDOS -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Alimentos PROIBIDOS (alergia/intolerancia) *</label>
+            <div class="tag-input-container" id="tags-proibidos-container" onclick="this.querySelector('input').focus()">
+              <input type="text" placeholder="Digite e pressione Enter, ou 'nenhum'..." onkeydown="handleTag(event, 'tags-proibidos')" class="text-sm">
+            </div>
+            <input type="hidden" name="alimentos_proibidos" id="tags-proibidos-hidden">
+            <p class="text-xs text-red-400 mt-1">CRITICO: estes alimentos NUNCA aparecerao no cardapio</p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="paladar" class="block text-sm font-medium text-gray-700 mb-1">Paladar dominante *</label>
+              <select id="paladar" name="paladar_dominante" required
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                <option value="">Selecione...</option>
+                <option value="doce">Doce</option>
+                <option value="salgado">Salgado</option>
+                <option value="neutro">Neutro</option>
+              </select>
+            </div>
+            <div>
+              <label for="leite" class="block text-sm font-medium text-gray-700 mb-1">Tipo de leite *</label>
+              <select id="leite" name="tipo_leite" required
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                <option value="">Selecione...</option>
+                <option value="integral">Integral</option>
+                <option value="desnatado">Desnatado</option>
+                <option value="sem_lactose">Sem lactose</option>
+                <option value="vegetal">Vegetal</option>
+                <option value="nao_bebe">Nao bebe</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="pref_jantar" class="block text-sm font-medium text-gray-700 mb-1">Preferencia no jantar *</label>
+              <select id="pref_jantar" name="preferencia_jantar" required
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                <option value="">Selecione...</option>
+                <option value="comida_prato">Comida (prato feito)</option>
+                <option value="lanche">Lanche</option>
+                <option value="tanto_faz">Tanto faz</option>
+              </select>
+            </div>
+            <div>
+              <label for="textura" class="block text-sm font-medium text-gray-700 mb-1">Textura preferida</label>
+              <select id="textura" name="textura_preferida"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                <option value="">Selecione...</option>
+                <option value="sequinha">Comida sequinha</option>
+                <option value="molhadinha">Comida molhadinha</option>
+                <option value="tanto_faz">Tanto faz</option>
+              </select>
+              <p class="text-xs text-gray-400 mt-1">"Comida molhadinha" e variavel real do Santiago</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between">
+        <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
+          &larr; Voltar
+        </button>
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+          Proximo &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- BLOCO 8: HABITOS E SINAIS CLINICOS         -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="step step-hidden" data-step="7">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">8</div>
+          <h2 class="text-xl font-bold text-gray-900">Habitos e Sinais Clinicos</h2>
+        </div>
+
+        <div class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="agua" class="block text-sm font-medium text-gray-700 mb-1">Agua por dia *</label>
+              <select id="agua" name="agua_dia" required
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                <option value="">Selecione...</option>
+                <option value="menos_1L">&lt;1 litro</option>
+                <option value="1_2L">1-2 litros</option>
+                <option value="2_3L">2-3 litros</option>
+                <option value="mais_3L">&gt;3 litros</option>
+              </select>
+            </div>
+            <div>
+              <label for="cafe" class="block text-sm font-medium text-gray-700 mb-1">Cafe por dia *</label>
+              <select id="cafe" name="cafe_dia" required
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                <option value="">Selecione...</option>
+                <option value="0">Nao toma</option>
+                <option value="1_2">1-2 xicaras</option>
+                <option value="3_4">3-4 xicaras</option>
+                <option value="5+">5+ xicaras</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="alcool" class="block text-sm font-medium text-gray-700 mb-1">Alcool *</label>
+              <select id="alcool" name="alcool" required
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                <option value="">Selecione...</option>
+                <option value="nunca">Nunca</option>
+                <option value="social">Social (1-2x mes)</option>
+                <option value="semanal">Semanal</option>
+                <option value="diario">Diario</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Fuma? *</label>
+              <div class="flex flex-wrap gap-3 mt-1">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="radio" name="fuma" value="sim" required class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                  <span class="text-sm text-gray-700">Sim</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="radio" name="fuma" value="nao" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                  <span class="text-sm text-gray-700">Nao</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="radio" name="fuma" value="parou" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                  <span class="text-sm text-gray-700">Parou</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="intestino" class="block text-sm font-medium text-gray-700 mb-1">Intestino *</label>
+              <select id="intestino" name="intestino" required
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                <option value="">Selecione...</option>
+                <option value="regular">Regular</option>
+                <option value="constipado">Constipado</option>
+                <option value="solto">Solto</option>
+                <option value="alterna">Alterna</option>
+              </select>
+            </div>
+            <div>
+              <label for="mastigacao" class="block text-sm font-medium text-gray-700 mb-1">Mastigacao *</label>
+              <select id="mastigacao" name="mastigacao" required
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                <option value="">Selecione...</option>
+                <option value="rapida">Rapida</option>
+                <option value="normal">Normal</option>
+                <option value="lenta">Lenta</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="apetite" class="block text-sm font-medium text-gray-700 mb-1">Apetite *</label>
+            <select id="apetite" name="apetite" required
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+              <option value="">Selecione...</option>
+              <option value="baixo">Baixo</option>
+              <option value="normal">Normal</option>
+              <option value="alto">Alto</option>
+              <option value="compulsivo">Compulsivo</option>
+            </select>
+          </div>
+
+          <!-- Sinais Clinicos -->
+          <fieldset>
+            <legend class="text-sm font-semibold text-gray-800 mb-2">Sinais clinicos</legend>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <span class="text-sm text-gray-700">Queda de cabelo</span>
+                <div class="flex gap-3">
+                  <label class="flex items-center gap-1 cursor-pointer">
+                    <input type="radio" name="queda_cabelo" value="sim" required class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                    <span class="text-xs text-gray-600">Sim</span>
+                  </label>
+                  <label class="flex items-center gap-1 cursor-pointer">
+                    <input type="radio" name="queda_cabelo" value="nao" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                    <span class="text-xs text-gray-600">Nao</span>
+                  </label>
+                </div>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <span class="text-sm text-gray-700">Unhas quebradicas</span>
+                <div class="flex gap-3">
+                  <label class="flex items-center gap-1 cursor-pointer">
+                    <input type="radio" name="unhas_quebradicas" value="sim" required class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                    <span class="text-xs text-gray-600">Sim</span>
+                  </label>
+                  <label class="flex items-center gap-1 cursor-pointer">
+                    <input type="radio" name="unhas_quebradicas" value="nao" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                    <span class="text-xs text-gray-600">Nao</span>
+                  </label>
+                </div>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <span class="text-sm text-gray-700">Acne</span>
+                <div class="flex gap-3">
+                  <label class="flex items-center gap-1 cursor-pointer">
+                    <input type="radio" name="acne" value="sim" required class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                    <span class="text-xs text-gray-600">Sim</span>
+                  </label>
+                  <label class="flex items-center gap-1 cursor-pointer">
+                    <input type="radio" name="acne" value="nao" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                    <span class="text-xs text-gray-600">Nao</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="flex justify-between">
+        <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
+          &larr; Voltar
+        </button>
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+          Proximo &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- BLOCO 9: RECORDATORIO ALIMENTAR            -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="step step-hidden" data-step="8">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">9</div>
+          <h2 class="text-xl font-bold text-gray-900">Recordatorio Alimentar</h2>
+          <span class="text-xs px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Dieta Atual</span>
+        </div>
+
+        <p class="text-sm text-gray-500 mb-4 bg-amber-50 p-3 rounded-lg">
+          Descreva o que voce come normalmente em um dia comum. Inclua horario e os alimentos de cada refeicao.
+          <strong>Exemplo:</strong> "07:00 - 2 ovos mexidos, pao integral, cafe com leite"
+        </p>
+
+        <div id="recordatorio-meals" class="space-y-4">
+          <!-- Meal 1 -->
+          <div class="recordatorio-row bg-gray-50 rounded-xl p-4" data-meal="1">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="text-sm font-bold text-emerald-700">Refeicao 1</span>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-24 flex-shrink-0">
+                <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="recordatorio_1_hora" placeholder="07:00"
+                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              </div>
+              <div class="flex-1">
+                <input type="text" name="recordatorio_1_desc" placeholder="2 ovos mexidos, pao integral, cafe com leite"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              </div>
+            </div>
+          </div>
+
+          <!-- Meal 2 -->
+          <div class="recordatorio-row bg-gray-50 rounded-xl p-4" data-meal="2">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="text-sm font-bold text-emerald-700">Refeicao 2</span>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-24 flex-shrink-0">
+                <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="recordatorio_2_hora" placeholder="10:00"
+                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              </div>
+              <div class="flex-1">
+                <input type="text" name="recordatorio_2_desc" placeholder="Fruta + iogurte natural"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              </div>
+            </div>
+          </div>
+
+          <!-- Meal 3 -->
+          <div class="recordatorio-row bg-gray-50 rounded-xl p-4" data-meal="3">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="text-sm font-bold text-emerald-700">Refeicao 3</span>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-24 flex-shrink-0">
+                <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="recordatorio_3_hora" placeholder="12:30"
+                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              </div>
+              <div class="flex-1">
+                <input type="text" name="recordatorio_3_desc" placeholder="Arroz, feijao, frango grelhado, salada"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              </div>
+            </div>
+          </div>
+
+          <!-- Meal 4 -->
+          <div class="recordatorio-row bg-gray-50 rounded-xl p-4" data-meal="4">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="text-sm font-bold text-emerald-700">Refeicao 4</span>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-24 flex-shrink-0">
+                <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="recordatorio_4_hora" placeholder="16:00"
+                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              </div>
+              <div class="flex-1">
+                <input type="text" name="recordatorio_4_desc" placeholder="Lanche da tarde"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              </div>
+            </div>
+          </div>
+
+          <!-- Meal 5 -->
+          <div class="recordatorio-row bg-gray-50 rounded-xl p-4" data-meal="5">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="text-sm font-bold text-emerald-700">Refeicao 5</span>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-24 flex-shrink-0">
+                <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="recordatorio_5_hora" placeholder="19:30"
+                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              </div>
+              <div class="flex-1">
+                <input type="text" name="recordatorio_5_desc" placeholder="Jantar"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              </div>
+            </div>
+          </div>
+
+          <!-- Meal 6 (hidden by default) -->
+          <div class="recordatorio-row bg-gray-50 rounded-xl p-4 hidden" data-meal="6">
+            <div class="flex items-center gap-3 mb-2">
+              <span class="text-sm font-bold text-emerald-700">Refeicao 6</span>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-24 flex-shrink-0">
+                <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="recordatorio_6_hora"
+                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              </div>
+              <div class="flex-1">
+                <input type="text" name="recordatorio_6_desc" placeholder="Ceia / lanche noturno"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" onclick="addRecordatorioMeal()" id="add-meal-btn"
+          class="mt-3 text-sm text-emerald-600 hover:text-emerald-800 font-medium flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Adicionar refeicao
+        </button>
+      </div>
+
+      <div class="flex justify-between">
+        <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
+          &larr; Voltar
+        </button>
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+          Proximo &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- BLOCO 10: EXAMES LABORATORIAIS             -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="step step-hidden" data-step="9">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">10</div>
+          <h2 class="text-xl font-bold text-gray-900">Exames Laboratoriais</h2>
+          <span class="text-xs px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Opcional, alto impacto</span>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Tem exames recentes (ultimos 6 meses)?</label>
+            <div class="flex gap-4">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="tem_exames" value="sim" onchange="toggleExames(true)" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Sim</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="tem_exames" value="nao" onchange="toggleExames(false)" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                <span class="text-sm text-gray-700">Nao</span>
+              </label>
+            </div>
+          </div>
+
+          <div id="exames-container" class="hidden space-y-4">
+            <p class="text-xs text-gray-500 bg-blue-50 p-3 rounded-lg">Preencha apenas os exames que possui. Valores fora da referencia serao sinalizados automaticamente.</p>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="glicemia" class="block text-sm font-medium text-gray-700 mb-1">Glicemia jejum (mg/dL)</label>
+                <input type="number" id="glicemia" name="glicemia_jejum" min="40" max="500" step="1" placeholder="99"
+                  oninput="flagExame(this, 100, '> 100 = pre-diabetes')"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                <p class="text-xs text-gray-400 mt-1 exame-flag"></p>
+              </div>
+              <div>
+                <label for="hba1c" class="block text-sm font-medium text-gray-700 mb-1">HbA1c (%)</label>
+                <input type="number" id="hba1c" name="hba1c" min="3" max="15" step="0.1" placeholder="5.4"
+                  oninput="flagExame(this, 5.7, '> 5.7 = pre-diabetes')"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                <p class="text-xs text-gray-400 mt-1 exame-flag"></p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="homa_ir" class="block text-sm font-medium text-gray-700 mb-1">HOMA-IR</label>
+                <input type="number" id="homa_ir" name="homa_ir" min="0" max="30" step="0.1" placeholder="1.8"
+                  oninput="flagExame(this, 2.5, '> 2.5 = resistencia insulinica')"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                <p class="text-xs text-gray-400 mt-1 exame-flag"></p>
+              </div>
+              <div>
+                <label for="colesterol_total" class="block text-sm font-medium text-gray-700 mb-1">Colesterol total (mg/dL)</label>
+                <input type="number" id="colesterol_total" name="colesterol_total" min="50" max="600" step="1" placeholder="190"
+                  oninput="flagExame(this, 240, '> 240 = dislipidemia')"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                <p class="text-xs text-gray-400 mt-1 exame-flag"></p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="hdl" class="block text-sm font-medium text-gray-700 mb-1">HDL (mg/dL)</label>
+                <input type="number" id="hdl" name="hdl" min="10" max="200" step="1" placeholder="55"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                <p class="text-xs text-gray-400 mt-1">&lt;40 (H) / &lt;50 (M) = risco</p>
+              </div>
+              <div>
+                <label for="ldl" class="block text-sm font-medium text-gray-700 mb-1">LDL (mg/dL)</label>
+                <input type="number" id="ldl" name="ldl" min="10" max="400" step="1" placeholder="110"
+                  oninput="flagExame(this, 160, '> 160 = dislipidemia')"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                <p class="text-xs text-gray-400 mt-1 exame-flag"></p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="triglicerideos" class="block text-sm font-medium text-gray-700 mb-1">Triglicerideos (mg/dL)</label>
+                <input type="number" id="triglicerideos" name="triglicerideos" min="20" max="1000" step="1" placeholder="120"
+                  oninput="flagExame(this, 150, '> 150 = risco')"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                <p class="text-xs text-gray-400 mt-1 exame-flag"></p>
+              </div>
+              <div>
+                <label for="tsh" class="block text-sm font-medium text-gray-700 mb-1">TSH (mUI/L)</label>
+                <input type="number" id="tsh" name="tsh" min="0" max="100" step="0.01" placeholder="2.5"
+                  oninput="flagExame(this, 4.5, '> 4.5 = hipotireoidismo')"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                <p class="text-xs text-gray-400 mt-1 exame-flag"></p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="t4_livre" class="block text-sm font-medium text-gray-700 mb-1">T4 livre (ng/dL)</label>
+                <input type="number" id="t4_livre" name="t4_livre" min="0" max="10" step="0.01" placeholder="1.2"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                <p class="text-xs text-gray-400 mt-1">Analisar em contexto com TSH</p>
+              </div>
+              <div>
+                <label for="testosterona" class="block text-sm font-medium text-gray-700 mb-1">Testosterona total (ng/dL)</label>
+                <input type="number" id="testosterona" name="testosterona_total" min="0" max="2000" step="1" placeholder="500"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                <p class="text-xs text-gray-400 mt-1">Referencia varia por sexo e idade</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="vitamina_d" class="block text-sm font-medium text-gray-700 mb-1">Vitamina D (ng/mL)</label>
+                <input type="number" id="vitamina_d" name="vitamina_d" min="0" max="200" step="0.1" placeholder="32"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                <p class="text-xs text-gray-400 mt-1" id="vitd-flag">&lt;20 = deficiencia</p>
+              </div>
+              <div>
+                <label for="ferritina" class="block text-sm font-medium text-gray-700 mb-1">Ferritina (ng/mL)</label>
+                <input type="number" id="ferritina" name="ferritina" min="0" max="2000" step="1" placeholder="80"
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                <p class="text-xs text-gray-400 mt-1" id="ferritina-flag">&lt;30 = baixa reserva</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cynefin data (hidden — sent to backend only) -->
+      <div id="cynefin-summary" style="display:none">
+        <div id="cynefin-final-badge"><span id="cynefin-final-score"></span><span id="cynefin-final-domain"></span></div>
+        <p id="cynefin-action"></p><p id="cynefin-pipeline"></p>
+        <div id="cynefin-breakdown"></div>
+      </div>
+
+      <!-- Submit -->
+      <div class="flex justify-between items-center">
+        <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
+          &larr; Voltar
+        </button>
+        <button type="submit" id="submit-btn" class="px-8 py-3 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 transition-colors text-base shadow-lg shadow-emerald-200">
+          Enviar Anamnese
+        </button>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- Success / Error overlay -->
+  <div id="submit-overlay" style="display:none" class="fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center shadow-2xl">
+      <!-- Success state -->
+      <div id="submit-success" style="display:none">
+        <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Anamnese enviada com sucesso!</h3>
+        <p class="text-sm text-gray-500">Entrarei em Contato em Breve. Bem-vindo ao time.</p>
+      </div>
+      <!-- Error state -->
+      <div id="submit-error" style="display:none">
+        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Erro ao enviar</h3>
+        <p class="text-sm text-gray-500 mb-4">Houve um problema. Tente novamente ou entre em contato pelo WhatsApp.</p>
+        <button onclick="closeOverlay()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 text-sm">
+          Tentar novamente
+        </button>
+      </div>
+      <!-- Loading state -->
+      <div id="submit-loading">
+        <div class="w-16 h-16 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin mx-auto mb-4"></div>
+        <h3 class="text-lg font-bold text-gray-900">Enviando sua anamnese...</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="max-w-3xl mx-auto px-4 py-8 text-center text-xs text-gray-400">
+    Dados enviados com seguranca
+  </footer>
+
+  <script>
+    // ═══════════════════════════════════════
+    // STEP NAVIGATION
+    // ═══════════════════════════════════════
+    let currentStep = 0;
+    const totalSteps = 10;
+
+    function goToStep(step) {
+      if (step < 0 || step >= totalSteps) return;
+      document.querySelectorAll('.step').forEach(s => {
+        s.classList.remove('step-active');
+        s.classList.add('step-hidden');
+      });
+      document.querySelector(`.step[data-step="${step}"]`).classList.remove('step-hidden');
+      document.querySelector(`.step[data-step="${step}"]`).classList.add('step-active');
+
+      document.querySelectorAll('.progress-step').forEach((btn, i) => {
+        if (i <= step) {
+          btn.classList.remove('bg-gray-200', 'text-gray-600');
+          btn.classList.add('bg-emerald-600', 'text-white');
+        } else {
+          btn.classList.remove('bg-emerald-600', 'text-white');
+          btn.classList.add('bg-gray-200', 'text-gray-600');
+        }
+      });
+
+      currentStep = step;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextStep() { goToStep(currentStep + 1); }
+    function prevStep() { goToStep(currentStep - 1); }
+
+    // ═══════════════════════════════════════
+    // CONDITIONAL FIELDS
+    // ═══════════════════════════════════════
+    function toggleDietResult(show) {
+      const container = document.getElementById('diet-result-container');
+      container.classList.toggle('hidden', !show);
+      if (!show) document.getElementById('resultado_dieta').value = '';
+    }
+
+    // Watch diet result for "ioio" pattern
+    document.getElementById('resultado_dieta').addEventListener('change', function() {
+      document.getElementById('ioio-alert').classList.toggle('hidden', this.value !== 'funcionou_voltou');
+    });
+
+    function toggleTraining(show) {
+      document.getElementById('training-details').classList.toggle('hidden', !show);
+    }
+
+    // ═══════════════════════════════════════
+    // DYNAMIC ACTIVITIES
+    // ═══════════════════════════════════════
+    let activityCount = 1;
+    const maxActivities = 6;
+
+    function addActivity() {
+      activityCount++;
+      const n = activityCount;
+      const list = document.getElementById('activities-list');
+      const card = document.createElement('div');
+      card.className = 'activity-card bg-gray-50 rounded-xl p-4 border border-gray-200';
+      card.dataset.activity = String(n);
+      card.innerHTML = `
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-sm font-bold text-emerald-700">Atividade ${n}</span>
+          <button type="button" onclick="removeActivity(this)" class="text-xs text-red-400 hover:text-red-600 font-medium">Remover</button>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Modalidade *</label>
+            <select name="atividade_${n}_modalidade"
+              class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+              <option value="">Selecione...</option>
+              <option value="musculacao">Musculacao</option>
+              <option value="corrida">Corrida</option>
+              <option value="natacao">Natacao</option>
+              <option value="ciclismo">Ciclismo</option>
+              <option value="crossfit">CrossFit</option>
+              <option value="artes_marciais">Artes marciais</option>
+              <option value="yoga_pilates">Yoga / Pilates</option>
+              <option value="futebol">Futebol</option>
+              <option value="caminhada">Caminhada</option>
+              <option value="funcional">Funcional</option>
+              <option value="danca">Danca</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Frequencia semanal *</label>
+            <select name="atividade_${n}_frequencia"
+              class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+              <option value="">Selecione...</option>
+              <option value="1x">1x</option>
+              <option value="2x">2x</option>
+              <option value="3x">3x</option>
+              <option value="4x">4x</option>
+              <option value="5x">5x</option>
+              <option value="6x">6x</option>
+              <option value="7x">7x</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Duracao</label>
+            <select name="atividade_${n}_duracao"
+              class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+              <option value="">Selecione...</option>
+              <option value="30min">30 min</option>
+              <option value="45min">45 min</option>
+              <option value="1h">1 hora</option>
+              <option value="1h30">1h30</option>
+              <option value="2h">2 horas</option>
+              <option value="2h+">Mais de 2 horas</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Horario</label>
+            <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="atividade_${n}_horario" placeholder="06:00"
+              class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+          </div>
+        </div>
+      `;
+      list.appendChild(card);
+
+      if (activityCount >= maxActivities) {
+        document.getElementById('add-activity-btn').style.display = 'none';
+      }
+    }
+
+    function removeActivity(btn) {
+      btn.closest('.activity-card').remove();
+      if (activityCount >= maxActivities) {
+        document.getElementById('add-activity-btn').style.display = '';
+      }
+      activityCount--;
+    }
+
+    // Serialize activities into modalidades[] and summary fields before submit
+    function serializeActivities(form) {
+      // Remove old generated hidden fields
+      form.querySelectorAll('.activity-hidden').forEach(el => el.remove());
+
+      const cards = form.querySelectorAll('.activity-card');
+      const modalidades = [];
+      let totalFreq = 0;
+
+      cards.forEach((card, i) => {
+        const n = i + 1;
+        const mod = card.querySelector(`[name*="_modalidade"]`)?.value || '';
+        const freq = card.querySelector(`[name*="_frequencia"]`)?.value || '';
+        const dur = card.querySelector(`[name*="_duracao"]`)?.value || '';
+        const hor = card.querySelector(`[name*="_horario"]`)?.value || '';
+
+        if (mod) modalidades.push(mod);
+        const freqNum = parseInt(freq) || 0;
+        totalFreq += freqNum;
+
+        // Hidden summary per activity
+        const h = document.createElement('input');
+        h.type = 'hidden'; h.className = 'activity-hidden';
+        h.name = `modalidades[]`; h.value = mod;
+        form.appendChild(h);
+      });
+
+      // Summary fields for backward compat
+      const addHidden = (name, value) => {
+        const h = document.createElement('input');
+        h.type = 'hidden'; h.className = 'activity-hidden';
+        h.name = name; h.value = value;
+        form.appendChild(h);
+      };
+      addHidden('frequencia_semanal', totalFreq + 'x');
+      const firstDur = form.querySelector('[name*="_duracao"]')?.value || '1h';
+      addHidden('duracao_media', firstDur);
+      const firstHor = form.querySelector('[name*="_horario"]')?.value || '';
+      if (firstHor) addHidden('horario_treino', firstHor);
+    }
+
+    function toggleExames(show) {
+      document.getElementById('exames-container').classList.toggle('hidden', !show);
+    }
+
+    // ═══════════════════════════════════════
+    // "NENHUM" CHECKBOX LOGIC
+    // ═══════════════════════════════════════
+    function uncheckOthers(noneCheckbox, groupName) {
+      if (noneCheckbox.checked) {
+        document.querySelectorAll(`input[name="${groupName}"]`).forEach(cb => {
+          if (cb !== noneCheckbox) cb.checked = false;
+        });
+      }
+      updateCynefin();
+    }
+
+    // Uncheck "nenhum" when another option is selected
+    document.addEventListener('change', function(e) {
+      if (e.target.type === 'checkbox' && e.target.name.endsWith('[]')) {
+        const groupName = e.target.name;
+        const noneCheckbox = document.querySelector(`input[name="${groupName}"][value="nenhuma"], input[name="${groupName}"][value="nenhum"], input[name="${groupName}"][value="nao_se_aplica"]`);
+        if (noneCheckbox && e.target !== noneCheckbox && e.target.checked) {
+          noneCheckbox.checked = false;
+        }
+      }
+    });
+
+    // ═══════════════════════════════════════
+    // TAG INPUT SYSTEM
+    // ═══════════════════════════════════════
+    const tagData = { 'tags-ama': [], 'tags-nao-gosta': [], 'tags-proibidos': [] };
+
+    function handleTag(event, tagGroup) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const input = event.target;
+        const value = input.value.trim();
+        if (!value) return;
+
+        tagData[tagGroup].push(value);
+        renderTags(tagGroup);
+        input.value = '';
+      }
+    }
+
+    function removeTag(tagGroup, index) {
+      tagData[tagGroup].splice(index, 1);
+      renderTags(tagGroup);
+    }
+
+    function renderTags(tagGroup) {
+      const container = document.getElementById(`${tagGroup}-container`);
+      const hidden = document.getElementById(`${tagGroup}-hidden`);
+      const input = container.querySelector('input[type="text"]');
+
+      // Remove existing tags
+      container.querySelectorAll('.tag').forEach(t => t.remove());
+
+      // Add tags before input
+      tagData[tagGroup].forEach((tag, i) => {
+        const tagEl = document.createElement('span');
+        tagEl.className = 'tag';
+        tagEl.innerHTML = `${tag} <button type="button" onclick="removeTag('${tagGroup}', ${i})">&times;</button>`;
+        container.insertBefore(tagEl, input);
+      });
+
+      // Update hidden field
+      hidden.value = tagData[tagGroup].join(', ');
+    }
+
+    // ═══════════════════════════════════════
+    // EXAME FLAG SYSTEM
+    // ═══════════════════════════════════════
+    function flagExame(input, threshold, message) {
+      const flag = input.parentElement.querySelector('.exame-flag');
+      if (!flag) return;
+      const val = parseFloat(input.value);
+      if (isNaN(val)) {
+        flag.textContent = '';
+        flag.className = 'text-xs text-gray-400 mt-1 exame-flag';
+        return;
+      }
+      if (val > threshold) {
+        flag.textContent = message;
+        flag.className = 'text-xs text-red-500 mt-1 font-medium exame-flag';
+      } else {
+        flag.textContent = 'Dentro da referencia';
+        flag.className = 'text-xs text-emerald-500 mt-1 exame-flag';
+      }
+    }
+
+    // ═══════════════════════════════════════
+    // CYNEFIN COMPLEXITY SCORE ENGINE
+    // ═══════════════════════════════════════
+    function updateCynefin() {
+      let score = 0;
+      const breakdown = [];
+
+      // Helper to check if checkbox is checked
+      function isChecked(name, value) {
+        const cb = document.querySelector(`input[name="${name}"][value="${value}"]`);
+        return cb && cb.checked;
+      }
+
+      // Comorbidades metabolicas (+2 cada: HAS, dislipidemia)
+      if (isChecked('condicoes_metabolicas[]', 'hipertensao')) { score += 2; breakdown.push('Hipertensao: +2'); }
+      if (isChecked('condicoes_metabolicas[]', 'colesterol_alto')) { score += 2; breakdown.push('Colesterol alto: +2'); }
+      if (isChecked('condicoes_metabolicas[]', 'pre_diabetes')) { score += 2; breakdown.push('Pre-diabetes: +2'); }
+      if (isChecked('condicoes_metabolicas[]', 'resistencia_insulinica')) { score += 2; breakdown.push('Resistencia insulinica: +2'); }
+
+      // Diabetes T2 (+3)
+      if (isChecked('condicoes_metabolicas[]', 'diabetes_t2')) { score += 3; breakdown.push('Diabetes T2: +3'); }
+
+      // Diabetes T1 (+4)
+      if (isChecked('condicoes_metabolicas[]', 'diabetes_t1')) { score += 4; breakdown.push('Diabetes T1: +4'); }
+
+      // AAS atual (+2)
+      if (isChecked('substancias[]', 'aas_atual')) { score += 2; breakdown.push('AAS atual: +2'); }
+
+      // PCOS (+2)
+      if (isChecked('hormonal[]', 'pcos')) { score += 2; breakdown.push('PCOS: +2'); }
+
+      // Hipotireoidismo NAO controlado (+2)
+      if (isChecked('hormonal[]', 'hipotireoidismo_sem_medicacao')) { score += 2; breakdown.push('Hipotireoidismo nao controlado: +2'); }
+
+      // Hipotireoidismo controlado (+0) — no score added
+
+      // Atleta competitivo (+2)
+      const classif = document.getElementById('classificacao')?.value;
+      if (classif === 'competitivo_amador' || classif === 'atleta_profissional') { score += 2; breakdown.push('Atleta competitivo: +2'); }
+
+      // TA ativo (+5)
+      if (isChecked('psiquiatrico[]', 'ta_ativo')) { score += 5; breakdown.push('TA ativo: +5'); }
+
+      // TA passado (+2)
+      if (isChecked('psiquiatrico[]', 'ta_passado')) { score += 2; breakdown.push('TA passado: +2'); }
+
+      // Gestante (+5, auto-CHAOTIC)
+      if (isChecked('saude_feminina[]', 'gestante')) { score += 5; breakdown.push('Gestante: +5 (auto-CHAOTIC)'); }
+
+      // Lactante (+3)
+      if (isChecked('saude_feminina[]', 'lactante')) { score += 3; breakdown.push('Lactante: +3'); }
+
+      // >60 anos (+1)
+      const dob = document.getElementById('data_nascimento')?.value;
+      if (dob) {
+        const age = Math.floor((new Date() - new Date(dob)) / (365.25 * 24 * 60 * 60 * 1000));
+        if (age > 60) { score += 1; breakdown.push('>60 anos: +1'); }
+      }
+
+      // >3 medicamentos (+2)
+      const meds = document.getElementById('medicamentos')?.value || '';
+      const medCount = meds.split(',').filter(m => m.trim().length > 0).length;
+      if (medCount > 3) { score += 2; breakdown.push('>3 medicamentos: +2'); }
+
+      // Determine domain
+      let domain, color, bgColor, borderColor, action, pipeline;
+      if (score <= 3) {
+        domain = 'CLEAR'; color = 'text-emerald-800'; bgColor = 'bg-emerald-100'; borderColor = 'border-emerald-200';
+        action = 'Protocolo automatico Santiago';
+        pipeline = 'Fases 0-4 normais';
+      } else if (score <= 8) {
+        domain = 'COMPLICATED'; color = 'text-yellow-800'; bgColor = 'bg-yellow-100'; borderColor = 'border-yellow-200';
+        action = 'Protocolo + regras compostas';
+        pipeline = 'Fases 0-4 + rules v2';
+      } else if (score <= 14) {
+        domain = 'COMPLEX'; color = 'text-orange-800'; bgColor = 'bg-orange-100'; borderColor = 'border-orange-200';
+        action = 'Geracao assistida + review obrigatorio';
+        pipeline = 'Fases 0-4 + flag para nutricionista';
+      } else {
+        domain = 'CHAOTIC'; color = 'text-red-800'; bgColor = 'bg-red-100'; borderColor = 'border-red-200';
+        action = 'BLOQUEADO — encaminhar para supervisao';
+        pipeline = 'Geracao automatica DESABILITADA';
+      }
+
+      // Update header badge
+      const badge = document.getElementById('cynefin-badge');
+      badge.textContent = `${domain} (${score})`;
+      badge.className = `cynefin-badge px-3 py-1.5 rounded-full text-xs font-bold ${bgColor} ${color} border ${borderColor}`;
+
+      // Update final summary (step 9)
+      const finalBadge = document.getElementById('cynefin-final-badge');
+      finalBadge.className = `w-20 h-20 rounded-2xl flex flex-col items-center justify-center ${bgColor} ${color} border-2 ${borderColor}`;
+      document.getElementById('cynefin-final-score').textContent = score;
+      document.getElementById('cynefin-final-domain').textContent = domain;
+      document.getElementById('cynefin-action').textContent = action;
+      document.getElementById('cynefin-pipeline').textContent = pipeline;
+
+      // Update breakdown
+      const breakdownEl = document.getElementById('cynefin-breakdown');
+      breakdownEl.innerHTML = breakdown.length > 0
+        ? breakdown.map(b => `<div>${b}</div>`).join('')
+        : '<div>Nenhum fator de risco detectado</div>';
+
+      // Update hidden fields
+      document.getElementById('cynefin-score-input').value = score;
+      document.getElementById('cynefin-domain-input').value = domain;
+
+      // Cynefin score is tracked but never shown to patient
+      // Submit is always enabled — backend handles routing
+    }
+
+    // Run Cynefin on page load
+    updateCynefin();
+
+    // ═══════════════════════════════════════
+    // RECORDATORIO ALIMENTAR
+    // ═══════════════════════════════════════
+    let recordatorioCount = 5; // 5 visible by default (6th hidden)
+    const maxRecordatorio = 10;
+
+    function addRecordatorioMeal() {
+      const container = document.getElementById('recordatorio-meals');
+      // First check if there's a hidden row to show
+      const hiddenRow = container.querySelector('.recordatorio-row.hidden');
+      if (hiddenRow) {
+        hiddenRow.classList.remove('hidden');
+        recordatorioCount++;
+      } else if (recordatorioCount < maxRecordatorio) {
+        recordatorioCount++;
+        const n = recordatorioCount;
+        const row = document.createElement('div');
+        row.className = 'recordatorio-row bg-gray-50 rounded-xl p-4';
+        row.dataset.meal = String(n);
+        row.innerHTML = `
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-sm font-bold text-emerald-700">Refeicao ${n}</span>
+          </div>
+          <div class="flex gap-3">
+            <div class="w-24 flex-shrink-0">
+              <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="recordatorio_${n}_hora"
+                class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+            </div>
+            <div class="flex-1">
+              <input type="text" name="recordatorio_${n}_desc" placeholder="Descreva o que comeu"
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+            </div>
+          </div>
+        `;
+        container.appendChild(row);
+      }
+
+      if (recordatorioCount >= maxRecordatorio) {
+        document.getElementById('add-meal-btn').classList.add('hidden');
+      }
+    }
+
+    // ═══════════════════════════════════════
+    // FORM SUBMIT WITH FEEDBACK
+    // ═══════════════════════════════════════
+    function closeOverlay() {
+      document.getElementById('submit-overlay').style.display = 'none';
+      document.getElementById('submit-loading').style.display = '';
+      document.getElementById('submit-success').style.display = 'none';
+      document.getElementById('submit-error').style.display = 'none';
+    }
+
+    document.querySelector('form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      // Serialize activities into hidden fields
+      serializeActivities(this);
+
+      // Serialize recordatório fields
+      for (let i = 1; i <= maxRecordatorio; i++) {
+        const horaInput = document.querySelector(`[name="recordatorio_${i}_hora"]`);
+        const descInput = document.querySelector(`[name="recordatorio_${i}_desc"]`);
+        if (!horaInput || !descInput) continue;
+        const hora = horaInput.value.trim();
+        const desc = descInput.value.trim();
+        if (!desc) continue;
+        const hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.name = `recordatorio_${i}`;
+        hidden.value = hora ? `${hora} - ${desc}` : desc;
+        this.appendChild(hidden);
+      }
+
+      // Show loading overlay
+      const overlay = document.getElementById('submit-overlay');
+      overlay.style.display = '';
+      document.getElementById('submit-loading').style.display = '';
+      document.getElementById('submit-success').style.display = 'none';
+      document.getElementById('submit-error').style.display = 'none';
+
+      try {
+        const formData = new FormData(this);
+        const res = await fetch(this.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' },
+        });
+
+        document.getElementById('submit-loading').style.display = 'none';
+
+        if (res.ok) {
+          document.getElementById('submit-success').style.display = '';
+        } else {
+          document.getElementById('submit-error').style.display = '';
+        }
+      } catch (err) {
+        document.getElementById('submit-loading').style.display = 'none';
+        document.getElementById('submit-error').style.display = '';
+      }
+    });
+
+    // ═══════════════════════════════════════
+    // TIME AUTO-FORMAT (inserts : after 2 digits)
+    // ═══════════════════════════════════════
+    document.addEventListener('input', function(e) {
+      const el = e.target;
+      if (el.maxLength === 5 && el.pattern && el.pattern.includes(':')) {
+        let v = el.value.replace(/[^\d]/g, '');
+        if (v.length >= 3) v = v.slice(0, 2) + ':' + v.slice(2, 4);
+        el.value = v;
+      }
+    });
+
+    // Auto-advance date fields (DD → MM → AAAA)
+    document.getElementById('nasc_dia').addEventListener('input', function() {
+      this.value = this.value.replace(/\D/g, '');
+      if (this.value.length === 2) document.getElementById('nasc_mes').focus();
+    });
+    document.getElementById('nasc_mes').addEventListener('input', function() {
+      this.value = this.value.replace(/\D/g, '');
+      if (this.value.length === 2) document.getElementById('nasc_ano').focus();
+    });
+    document.getElementById('nasc_ano').addEventListener('input', function() {
+      this.value = this.value.replace(/\D/g, '');
+    });
+
+    // Compose data_nascimento hidden field before submit
+    function composeBirthDate() {
+      const d = document.getElementById('nasc_dia').value.padStart(2, '0');
+      const m = document.getElementById('nasc_mes').value.padStart(2, '0');
+      const y = document.getElementById('nasc_ano').value;
+      if (d && m && y.length === 4) {
+        document.getElementById('data_nascimento').value = `${y}-${m}-${d}`;
+      }
+    }
+    // Hook into submit
+    const origSubmitHandler = document.querySelector('form').onsubmit;
+    document.querySelector('form').addEventListener('submit', function() {
+      composeBirthDate();
+    }, true);
+  </script>
+
+</body>
+</html>
