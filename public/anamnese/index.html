@@ -1359,6 +1359,16 @@
     let currentStep = 0;
     const totalSteps = 10;
 
+    // Pre-fill nome from URL param (coming from /invite)
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const nome = params.get('nome');
+      if (nome) {
+        const nomeInput = document.getElementById('nome');
+        if (nomeInput) nomeInput.value = nome;
+      }
+    })();
+
     function goToStep(step) {
       if (step < 0 || step >= totalSteps) return;
       document.querySelectorAll('.step').forEach(s => {

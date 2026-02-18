@@ -54,7 +54,7 @@ export const IntroPage = () => {
 
     // Transição dramática
     setTimeout(() => {
-      router.push('/questionario');
+      router.push(`/anamnese?nome=${encodeURIComponent(nome.trim())}`);
     }, 1500);
   };
 
