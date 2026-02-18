@@ -30,7 +30,7 @@
   <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
     <div class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center">
+        <div class="w-10 h-10 bg-orange-600 rounded-xl flex items-center justify-center">
           <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
         </div>
         <div>
@@ -45,7 +45,7 @@
     <!-- Progress Bar -->
     <div class="max-w-3xl mx-auto px-4 pb-3">
       <div class="flex gap-1 overflow-x-auto" id="progress-bar">
-        <button onclick="goToStep(0)" class="progress-step flex-1 min-w-0 text-center py-1.5 px-2 rounded-md text-xs font-medium bg-emerald-600 text-white transition-colors" data-step="0">
+        <button onclick="goToStep(0)" class="progress-step flex-1 min-w-0 text-center py-1.5 px-2 rounded-md text-xs font-medium bg-orange-600 text-white transition-colors" data-step="0">
           <span>Identidade</span><span class="sm:hidden">1</span>
         </button>
         <button onclick="goToStep(1)" class="progress-step flex-1 min-w-0 text-center py-1.5 px-2 rounded-md text-xs font-medium bg-gray-200 text-gray-600 transition-colors" data-step="1">
@@ -94,7 +94,7 @@
     <div class="step step-active" data-step="0">
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">1</div>
+          <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-700 font-bold text-sm">1</div>
           <h2 class="text-xl font-bold text-gray-900">Identidade</h2>
         </div>
 
@@ -103,7 +103,7 @@
           <div>
             <label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Nome completo *</label>
             <input type="text" id="nome" name="nome" placeholder="Ex: Maria Silva Santos" required
-              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
           </div>
 
           <!-- Data Nascimento (DD/MM/AAAA) -->
@@ -111,13 +111,13 @@
             <label class="block text-sm font-medium text-gray-700 mb-1">Data de nascimento *</label>
             <div class="flex gap-2">
               <input type="text" id="nasc_dia" maxlength="2" placeholder="DD" required inputmode="numeric" pattern="\d{1,2}"
-                class="w-16 px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm text-center">
+                class="w-16 px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm text-center">
               <span class="self-center text-gray-400">/</span>
               <input type="text" id="nasc_mes" maxlength="2" placeholder="MM" required inputmode="numeric" pattern="\d{1,2}"
-                class="w-16 px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm text-center">
+                class="w-16 px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm text-center">
               <span class="self-center text-gray-400">/</span>
               <input type="text" id="nasc_ano" maxlength="4" placeholder="AAAA" required inputmode="numeric" pattern="\d{4}"
-                class="w-24 px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm text-center">
+                class="w-24 px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm text-center">
             </div>
             <input type="hidden" id="data_nascimento" name="data_nascimento">
           </div>
@@ -127,11 +127,11 @@
             <label class="block text-sm font-medium text-gray-700 mb-2">Sexo biologico *</label>
             <div class="flex gap-4">
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="sexo_biologico" value="masculino" required class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                <input type="radio" name="sexo_biologico" value="masculino" required class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Masculino</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="sexo_biologico" value="feminino" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                <input type="radio" name="sexo_biologico" value="feminino" class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Feminino</span>
               </label>
             </div>
@@ -141,14 +141,14 @@
           <div>
             <label for="profissao" class="block text-sm font-medium text-gray-700 mb-1">Profissao</label>
             <input type="text" id="profissao" name="profissao" placeholder="Ex: Engenheiro, Professor..."
-              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
           </div>
 
           <!-- Turno de Trabalho -->
           <div>
             <label for="turno_trabalho" class="block text-sm font-medium text-gray-700 mb-1">Turno de trabalho *</label>
             <select id="turno_trabalho" name="turno_trabalho" required
-              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
               <option value="">Selecione...</option>
               <option value="diurno">Diurno</option>
               <option value="noturno">Noturno</option>
@@ -161,20 +161,20 @@
           <div>
             <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
             <input type="email" id="email" name="email" placeholder="email@exemplo.com" required
-              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
           </div>
 
           <!-- Telefone -->
           <div>
             <label for="telefone" class="block text-sm font-medium text-gray-700 mb-1">Telefone / WhatsApp</label>
             <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999"
-              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
           </div>
         </div>
       </div>
 
       <div class="flex justify-end">
-        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition-colors text-sm">
           Proximo &rarr;
         </button>
       </div>
@@ -186,7 +186,7 @@
     <div class="step step-hidden" data-step="1">
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">2</div>
+          <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-700 font-bold text-sm">2</div>
           <h2 class="text-xl font-bold text-gray-900">Corpo</h2>
         </div>
 
@@ -195,32 +195,32 @@
             <div>
               <label for="altura" class="block text-sm font-medium text-gray-700 mb-1">Altura (cm) *</label>
               <input type="number" id="altura" name="altura_cm" min="100" max="250" placeholder="175" required
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
             </div>
             <div>
               <label for="peso" class="block text-sm font-medium text-gray-700 mb-1">Peso atual (kg) *</label>
               <input type="number" id="peso" name="peso_kg" min="30" max="300" step="0.1" placeholder="80.5" required
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
             </div>
           </div>
 
           <div>
             <label for="peso_desejado" class="block text-sm font-medium text-gray-700 mb-1">Peso desejado (kg)</label>
             <input type="number" id="peso_desejado" name="peso_desejado_kg" min="30" max="300" step="0.1" placeholder="75.0"
-              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
           </div>
 
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label for="bf" class="block text-sm font-medium text-gray-700 mb-1">% Gordura corporal</label>
               <input type="number" id="bf" name="gordura_corporal_pct" min="3" max="60" step="0.1" placeholder="20.0"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
               <p class="text-xs text-gray-400 mt-1">Opcional — caso saiba</p>
             </div>
             <div>
               <label for="circ_abdominal" class="block text-sm font-medium text-gray-700 mb-1">Circ. abdominal (cm)</label>
               <input type="number" id="circ_abdominal" name="circunferencia_abdominal_cm" min="40" max="200" placeholder="85"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
             </div>
           </div>
         </div>
@@ -230,7 +230,7 @@
         <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
           &larr; Voltar
         </button>
-        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition-colors text-sm">
           Proximo &rarr;
         </button>
       </div>
@@ -242,7 +242,7 @@
     <div class="step step-hidden" data-step="2">
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">3</div>
+          <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-700 font-bold text-sm">3</div>
           <h2 class="text-xl font-bold text-gray-900">Objetivo</h2>
         </div>
 
@@ -250,7 +250,7 @@
           <div>
             <label for="objetivo" class="block text-sm font-medium text-gray-700 mb-1">Objetivo principal *</label>
             <select id="objetivo" name="objetivo_principal" required
-              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
               <option value="">Selecione...</option>
               <option value="emagrecimento">Emagrecimento</option>
               <option value="hipertrofia">Hipertrofia</option>
@@ -265,11 +265,11 @@
             <label class="block text-sm font-medium text-gray-700 mb-2">Ja fez dieta antes? *</label>
             <div class="flex gap-4">
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="ja_fez_dieta" value="sim" required onchange="toggleDietResult(true)" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                <input type="radio" name="ja_fez_dieta" value="sim" required onchange="toggleDietResult(true)" class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Sim</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="ja_fez_dieta" value="nao" onchange="toggleDietResult(false)" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                <input type="radio" name="ja_fez_dieta" value="nao" onchange="toggleDietResult(false)" class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Nao</span>
               </label>
             </div>
@@ -278,7 +278,7 @@
           <div id="diet-result-container" class="hidden">
             <label for="resultado_dieta" class="block text-sm font-medium text-gray-700 mb-1">Qual foi o resultado?</label>
             <select id="resultado_dieta" name="resultado_dieta_anterior"
-              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
               <option value="">Selecione...</option>
               <option value="funcionou_manteve">Funcionou e manteve o peso</option>
               <option value="funcionou_voltou">Funcionou mas o peso voltou</option>
@@ -293,7 +293,7 @@
         <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
           &larr; Voltar
         </button>
-        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition-colors text-sm">
           Proximo &rarr;
         </button>
       </div>
@@ -305,7 +305,7 @@
     <div class="step step-hidden" data-step="3">
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">4</div>
+          <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-700 font-bold text-sm">4</div>
           <h2 class="text-xl font-bold text-gray-900">Saude</h2>
           <span class="text-xs text-gray-400">(marque todas que se aplicam)</span>
         </div>
@@ -316,43 +316,43 @@
             <legend class="text-sm font-semibold text-gray-800 mb-2">Condicoes metabolicas</legend>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="condicoes_metabolicas[]" value="hipertensao" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="hipertensao" onchange="updateCynefin()" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Hipertensao</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="condicoes_metabolicas[]" value="diabetes_t2" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="diabetes_t2" onchange="updateCynefin()" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Diabetes tipo 2</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="condicoes_metabolicas[]" value="diabetes_t1" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="diabetes_t1" onchange="updateCynefin()" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Diabetes tipo 1</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="condicoes_metabolicas[]" value="pre_diabetes" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="pre_diabetes" onchange="updateCynefin()" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Pre-diabetes</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="condicoes_metabolicas[]" value="colesterol_alto" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="colesterol_alto" onchange="updateCynefin()" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Colesterol alto</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="condicoes_metabolicas[]" value="resistencia_insulinica" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="resistencia_insulinica" onchange="updateCynefin()" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Resistencia insulinica</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="condicoes_metabolicas[]" value="gastrite_refluxo" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="gastrite_refluxo" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Gastrite / Refluxo</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="condicoes_metabolicas[]" value="doenca_renal" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="doenca_renal" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Doenca renal</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="condicoes_metabolicas[]" value="gota" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="gota" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Gota</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="condicoes_metabolicas[]" value="nenhuma" onchange="uncheckOthers(this, 'condicoes_metabolicas[]')" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="condicoes_metabolicas[]" value="nenhuma" onchange="uncheckOthers(this, 'condicoes_metabolicas[]')" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Nenhuma</span>
               </label>
             </div>
@@ -363,23 +363,23 @@
             <legend class="text-sm font-semibold text-gray-800 mb-2">Hormonal</legend>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="hormonal[]" value="hipotireoidismo_controlado" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="hormonal[]" value="hipotireoidismo_controlado" onchange="updateCynefin()" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Hipotireoidismo (controlado)</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="hormonal[]" value="hipotireoidismo_sem_medicacao" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="hormonal[]" value="hipotireoidismo_sem_medicacao" onchange="updateCynefin()" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Hipotireoidismo (sem medicacao)</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="hormonal[]" value="hipertireoidismo" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="hormonal[]" value="hipertireoidismo" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Hipertireoidismo</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="hormonal[]" value="pcos" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="hormonal[]" value="pcos" onchange="updateCynefin()" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">SOP (PCOS)</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="hormonal[]" value="nenhum" onchange="uncheckOthers(this, 'hormonal[]')" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="hormonal[]" value="nenhum" onchange="uncheckOthers(this, 'hormonal[]')" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Nenhum</span>
               </label>
             </div>
@@ -390,19 +390,19 @@
             <legend class="text-sm font-semibold text-gray-800 mb-2">Saude feminina</legend>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="saude_feminina[]" value="menopausa" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="saude_feminina[]" value="menopausa" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Menopausa</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="saude_feminina[]" value="gestante" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="saude_feminina[]" value="gestante" onchange="updateCynefin()" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Gestante</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="saude_feminina[]" value="lactante" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="saude_feminina[]" value="lactante" onchange="updateCynefin()" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Lactante</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="saude_feminina[]" value="nao_se_aplica" onchange="uncheckOthers(this, 'saude_feminina[]')" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="saude_feminina[]" value="nao_se_aplica" onchange="uncheckOthers(this, 'saude_feminina[]')" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Nao se aplica</span>
               </label>
             </div>
@@ -413,27 +413,27 @@
             <legend class="text-sm font-semibold text-gray-800 mb-2">Psiquiatrico</legend>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="psiquiatrico[]" value="ansiedade" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="psiquiatrico[]" value="ansiedade" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Ansiedade diagnosticada</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="psiquiatrico[]" value="depressao" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="psiquiatrico[]" value="depressao" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Depressao</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="psiquiatrico[]" value="compulsao_alimentar" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="psiquiatrico[]" value="compulsao_alimentar" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Compulsao alimentar</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="psiquiatrico[]" value="ta_ativo" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="psiquiatrico[]" value="ta_ativo" onchange="updateCynefin()" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Transtorno alimentar ATIVO</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="psiquiatrico[]" value="ta_passado" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="psiquiatrico[]" value="ta_passado" onchange="updateCynefin()" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Transtorno alimentar PASSADO</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="psiquiatrico[]" value="nenhum" onchange="uncheckOthers(this, 'psiquiatrico[]')" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="psiquiatrico[]" value="nenhum" onchange="uncheckOthers(this, 'psiquiatrico[]')" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Nenhum</span>
               </label>
             </div>
@@ -444,23 +444,23 @@
             <legend class="text-sm font-semibold text-gray-800 mb-2">Substancias</legend>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="substancias[]" value="aas_atual" onchange="updateCynefin()" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="substancias[]" value="aas_atual" onchange="updateCynefin()" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">AAS atual</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="substancias[]" value="aas_passado" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="substancias[]" value="aas_passado" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">AAS passado</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="substancias[]" value="trt_trh" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="substancias[]" value="trt_trh" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">TRT/TRH prescrita</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="substancias[]" value="anticoncepcional" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="substancias[]" value="anticoncepcional" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Anticoncepcional</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="substancias[]" value="nenhum" onchange="uncheckOthers(this, 'substancias[]')" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="substancias[]" value="nenhum" onchange="uncheckOthers(this, 'substancias[]')" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Nenhum</span>
               </label>
             </div>
@@ -470,7 +470,7 @@
           <div>
             <label for="medicamentos" class="block text-sm font-medium text-gray-700 mb-1">Medicamentos em uso</label>
             <textarea id="medicamentos" name="medicamentos" rows="2" placeholder="Ex: Losartana 50mg, Metformina 850mg..."
-              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm"></textarea>
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm"></textarea>
             <p class="text-xs text-gray-400 mt-1">Liste todos os medicamentos com dosagem.</p>
           </div>
 
@@ -479,23 +479,23 @@
             <legend class="text-sm font-semibold text-gray-800 mb-2">Historico familiar</legend>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="historico_familiar[]" value="diabetes" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="historico_familiar[]" value="diabetes" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Diabetes</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="historico_familiar[]" value="hipertensao" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="historico_familiar[]" value="hipertensao" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Hipertensao</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="historico_familiar[]" value="obesidade" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="historico_familiar[]" value="obesidade" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Obesidade</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="historico_familiar[]" value="cardiopatia" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="historico_familiar[]" value="cardiopatia" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Cardiopatia</span>
               </label>
               <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" name="historico_familiar[]" value="nenhum" onchange="uncheckOthers(this, 'historico_familiar[]')" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500">
+                <input type="checkbox" name="historico_familiar[]" value="nenhum" onchange="uncheckOthers(this, 'historico_familiar[]')" class="w-4 h-4 text-orange-600 rounded focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Nenhum</span>
               </label>
             </div>
@@ -507,7 +507,7 @@
         <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
           &larr; Voltar
         </button>
-        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition-colors text-sm">
           Proximo &rarr;
         </button>
       </div>
@@ -519,7 +519,7 @@
     <div class="step step-hidden" data-step="4">
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">5</div>
+          <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-700 font-bold text-sm">5</div>
           <h2 class="text-xl font-bold text-gray-900">Treino</h2>
         </div>
 
@@ -528,18 +528,18 @@
             <label class="block text-sm font-medium text-gray-700 mb-2">Pratica exercicio? *</label>
             <div class="flex gap-4">
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="pratica_exercicio" value="sim" required onchange="toggleTraining(true)" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                <input type="radio" name="pratica_exercicio" value="sim" required onchange="toggleTraining(true)" class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Sim</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="pratica_exercicio" value="nao" onchange="toggleTraining(false)" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                <input type="radio" name="pratica_exercicio" value="nao" onchange="toggleTraining(false)" class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Nao</span>
               </label>
             </div>
           </div>
 
           <div id="training-details" class="hidden space-y-4">
-            <p class="text-sm text-gray-500 bg-emerald-50 p-3 rounded-lg">
+            <p class="text-sm text-gray-500 bg-orange-50 p-3 rounded-lg">
               Adicione cada atividade que pratica com os detalhes de frequencia e horario.
             </p>
 
@@ -548,13 +548,13 @@
               <!-- Activity 1 (default) -->
               <div class="activity-card bg-gray-50 rounded-xl p-4 border border-gray-200" data-activity="1">
                 <div class="flex items-center justify-between mb-3">
-                  <span class="text-sm font-bold text-emerald-700">Atividade 1</span>
+                  <span class="text-sm font-bold text-orange-700">Atividade 1</span>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label class="block text-xs font-medium text-gray-600 mb-1">Modalidade *</label>
                     <select name="atividade_1_modalidade"
-                      class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white"
+                      class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white"
                       <option value="">Selecione...</option>
                       <option value="musculacao">Musculacao</option>
                       <option value="corrida">Corrida</option>
@@ -573,7 +573,7 @@
                   <div>
                     <label class="block text-xs font-medium text-gray-600 mb-1">Frequencia semanal *</label>
                     <select name="atividade_1_frequencia"
-                      class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                      class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
                       <option value="">Selecione...</option>
                       <option value="1x">1x</option>
                       <option value="2x">2x</option>
@@ -587,7 +587,7 @@
                   <div>
                     <label class="block text-xs font-medium text-gray-600 mb-1">Duracao</label>
                     <select name="atividade_1_duracao"
-                      class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                      class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
                       <option value="">Selecione...</option>
                       <option value="30min">30 min</option>
                       <option value="45min">45 min</option>
@@ -600,14 +600,14 @@
                   <div>
                     <label class="block text-xs font-medium text-gray-600 mb-1">Horario</label>
                     <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="atividade_1_horario" placeholder="06:00"
-                      class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                      class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
                   </div>
                 </div>
               </div>
             </div>
 
             <button type="button" onclick="addActivity()" id="add-activity-btn"
-              class="text-sm text-emerald-600 hover:text-emerald-800 font-medium flex items-center gap-1">
+              class="text-sm text-orange-600 hover:text-orange-800 font-medium flex items-center gap-1">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
               Adicionar outra atividade
             </button>
@@ -618,7 +618,7 @@
                 <div>
                   <label for="nivel" class="block text-sm font-medium text-gray-700 mb-1">Nivel geral de treino</label>
                   <select id="nivel" name="nivel_treino"
-                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
                     <option value="">Selecione...</option>
                     <option value="iniciante">Iniciante (menos de 6 meses)</option>
                     <option value="intermediario">Intermediario (6 meses a 2 anos)</option>
@@ -628,7 +628,7 @@
                 <div>
                   <label for="classificacao" class="block text-sm font-medium text-gray-700 mb-1">Como se classifica?</label>
                   <select id="classificacao" name="classificacao_atleta" onchange="updateCynefin()"
-                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
                     <option value="">Selecione...</option>
                     <option value="recreativo">Recreativo (saude e bem-estar)</option>
                     <option value="regular">Regular (treino consistente)</option>
@@ -646,7 +646,7 @@
         <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
           &larr; Voltar
         </button>
-        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition-colors text-sm">
           Proximo &rarr;
         </button>
       </div>
@@ -658,7 +658,7 @@
     <div class="step step-hidden" data-step="5">
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">6</div>
+          <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-700 font-bold text-sm">6</div>
           <h2 class="text-xl font-bold text-gray-900">Rotina</h2>
         </div>
 
@@ -667,18 +667,18 @@
             <div>
               <label for="horario_acorda" class="block text-sm font-medium text-gray-700 mb-1">Horario que acorda *</label>
               <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" id="horario_acorda" name="horario_acordar" required placeholder="06:00"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
             </div>
             <div>
               <label for="horario_dorme" class="block text-sm font-medium text-gray-700 mb-1">Horario que dorme *</label>
               <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" id="horario_dorme" name="horario_dormir" required placeholder="23:00"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
             </div>
           </div>
 
           <div>
             <label for="qualidade_sono" class="block text-sm font-medium text-gray-700 mb-1">
-              Qualidade do sono * <span id="sono-value" class="text-emerald-600 font-bold">5</span>/10
+              Qualidade do sono * <span id="sono-value" class="text-orange-600 font-bold">5</span>/10
             </label>
             <input type="range" id="qualidade_sono" name="qualidade_sono" min="1" max="10" value="5"
               oninput="document.getElementById('sono-value').textContent=this.value"
@@ -692,7 +692,7 @@
           <div>
             <label for="refeicoes_dia" class="block text-sm font-medium text-gray-700 mb-1">Refeicoes que consegue fazer por dia *</label>
             <select id="refeicoes_dia" name="refeicoes_dia" required
-              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
               <option value="">Selecione...</option>
               <option value="3">3 refeicoes</option>
               <option value="4">4 refeicoes</option>
@@ -706,7 +706,7 @@
             <div>
               <label for="cozinha" class="block text-sm font-medium text-gray-700 mb-1">Cozinha em casa? *</label>
               <select id="cozinha" name="cozinha_em_casa" required
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
                 <option value="">Selecione...</option>
                 <option value="sempre">Sempre</option>
                 <option value="as_vezes">As vezes</option>
@@ -718,11 +718,11 @@
               <label class="block text-sm font-medium text-gray-700 mb-2">Usa marmita? *</label>
               <div class="flex gap-4 mt-1">
                 <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="radio" name="usa_marmita" value="sim" required class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                  <input type="radio" name="usa_marmita" value="sim" required class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                   <span class="text-sm text-gray-700">Sim</span>
                 </label>
                 <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="radio" name="usa_marmita" value="nao" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                  <input type="radio" name="usa_marmita" value="nao" class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                   <span class="text-sm text-gray-700">Nao</span>
                 </label>
               </div>
@@ -733,7 +733,7 @@
             <div>
               <label for="come_fora" class="block text-sm font-medium text-gray-700 mb-1">Come fora *</label>
               <select id="come_fora" name="come_fora" required
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
                 <option value="">Selecione...</option>
                 <option value="nunca">Nunca</option>
                 <option value="1_2x_sem">1-2x por semana</option>
@@ -744,7 +744,7 @@
             <div>
               <label for="refeicao_dificil" class="block text-sm font-medium text-gray-700 mb-1">Refeicao mais dificil *</label>
               <select id="refeicao_dificil" name="refeicao_mais_dificil" required
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
                 <option value="">Selecione...</option>
                 <option value="cafe">Cafe da manha</option>
                 <option value="almoco">Almoco</option>
@@ -762,7 +762,7 @@
         <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
           &larr; Voltar
         </button>
-        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition-colors text-sm">
           Proximo &rarr;
         </button>
       </div>
@@ -774,7 +774,7 @@
     <div class="step step-hidden" data-step="6">
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">7</div>
+          <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-700 font-bold text-sm">7</div>
           <h2 class="text-xl font-bold text-gray-900">Preferencias Alimentares</h2>
           <span class="text-xs text-gray-400">"importancia ABSURDA" — Santiago</span>
         </div>
@@ -813,7 +813,7 @@
             <div>
               <label for="paladar" class="block text-sm font-medium text-gray-700 mb-1">Paladar dominante *</label>
               <select id="paladar" name="paladar_dominante" required
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
                 <option value="">Selecione...</option>
                 <option value="doce">Doce</option>
                 <option value="salgado">Salgado</option>
@@ -823,7 +823,7 @@
             <div>
               <label for="leite" class="block text-sm font-medium text-gray-700 mb-1">Tipo de leite *</label>
               <select id="leite" name="tipo_leite" required
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
                 <option value="">Selecione...</option>
                 <option value="integral">Integral</option>
                 <option value="desnatado">Desnatado</option>
@@ -838,7 +838,7 @@
             <div>
               <label for="pref_jantar" class="block text-sm font-medium text-gray-700 mb-1">Preferencia no jantar *</label>
               <select id="pref_jantar" name="preferencia_jantar" required
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
                 <option value="">Selecione...</option>
                 <option value="comida_prato">Comida (prato feito)</option>
                 <option value="lanche">Lanche</option>
@@ -848,7 +848,7 @@
             <div>
               <label for="textura" class="block text-sm font-medium text-gray-700 mb-1">Textura preferida</label>
               <select id="textura" name="textura_preferida"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
                 <option value="">Selecione...</option>
                 <option value="sequinha">Comida sequinha</option>
                 <option value="molhadinha">Comida molhadinha</option>
@@ -864,7 +864,7 @@
         <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
           &larr; Voltar
         </button>
-        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition-colors text-sm">
           Proximo &rarr;
         </button>
       </div>
@@ -876,7 +876,7 @@
     <div class="step step-hidden" data-step="7">
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">8</div>
+          <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-700 font-bold text-sm">8</div>
           <h2 class="text-xl font-bold text-gray-900">Habitos e Sinais Clinicos</h2>
         </div>
 
@@ -885,7 +885,7 @@
             <div>
               <label for="agua" class="block text-sm font-medium text-gray-700 mb-1">Agua por dia *</label>
               <select id="agua" name="agua_dia" required
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
                 <option value="">Selecione...</option>
                 <option value="menos_1L">&lt;1 litro</option>
                 <option value="1_2L">1-2 litros</option>
@@ -896,7 +896,7 @@
             <div>
               <label for="cafe" class="block text-sm font-medium text-gray-700 mb-1">Cafe por dia *</label>
               <select id="cafe" name="cafe_dia" required
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
                 <option value="">Selecione...</option>
                 <option value="0">Nao toma</option>
                 <option value="1_2">1-2 xicaras</option>
@@ -910,7 +910,7 @@
             <div>
               <label for="alcool" class="block text-sm font-medium text-gray-700 mb-1">Alcool *</label>
               <select id="alcool" name="alcool" required
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
                 <option value="">Selecione...</option>
                 <option value="nunca">Nunca</option>
                 <option value="social">Social (1-2x mes)</option>
@@ -922,15 +922,15 @@
               <label class="block text-sm font-medium text-gray-700 mb-2">Fuma? *</label>
               <div class="flex flex-wrap gap-3 mt-1">
                 <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="radio" name="fuma" value="sim" required class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                  <input type="radio" name="fuma" value="sim" required class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                   <span class="text-sm text-gray-700">Sim</span>
                 </label>
                 <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="radio" name="fuma" value="nao" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                  <input type="radio" name="fuma" value="nao" class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                   <span class="text-sm text-gray-700">Nao</span>
                 </label>
                 <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="radio" name="fuma" value="parou" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                  <input type="radio" name="fuma" value="parou" class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                   <span class="text-sm text-gray-700">Parou</span>
                 </label>
               </div>
@@ -941,7 +941,7 @@
             <div>
               <label for="intestino" class="block text-sm font-medium text-gray-700 mb-1">Intestino *</label>
               <select id="intestino" name="intestino" required
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
                 <option value="">Selecione...</option>
                 <option value="regular">Regular</option>
                 <option value="constipado">Constipado</option>
@@ -952,7 +952,7 @@
             <div>
               <label for="mastigacao" class="block text-sm font-medium text-gray-700 mb-1">Mastigacao *</label>
               <select id="mastigacao" name="mastigacao" required
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
                 <option value="">Selecione...</option>
                 <option value="rapida">Rapida</option>
                 <option value="normal">Normal</option>
@@ -964,7 +964,7 @@
           <div>
             <label for="apetite" class="block text-sm font-medium text-gray-700 mb-1">Apetite *</label>
             <select id="apetite" name="apetite" required
-              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
               <option value="">Selecione...</option>
               <option value="baixo">Baixo</option>
               <option value="normal">Normal</option>
@@ -981,11 +981,11 @@
                 <span class="text-sm text-gray-700">Queda de cabelo</span>
                 <div class="flex gap-3">
                   <label class="flex items-center gap-1 cursor-pointer">
-                    <input type="radio" name="queda_cabelo" value="sim" required class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                    <input type="radio" name="queda_cabelo" value="sim" required class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                     <span class="text-xs text-gray-600">Sim</span>
                   </label>
                   <label class="flex items-center gap-1 cursor-pointer">
-                    <input type="radio" name="queda_cabelo" value="nao" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                    <input type="radio" name="queda_cabelo" value="nao" class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                     <span class="text-xs text-gray-600">Nao</span>
                   </label>
                 </div>
@@ -994,11 +994,11 @@
                 <span class="text-sm text-gray-700">Unhas quebradicas</span>
                 <div class="flex gap-3">
                   <label class="flex items-center gap-1 cursor-pointer">
-                    <input type="radio" name="unhas_quebradicas" value="sim" required class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                    <input type="radio" name="unhas_quebradicas" value="sim" required class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                     <span class="text-xs text-gray-600">Sim</span>
                   </label>
                   <label class="flex items-center gap-1 cursor-pointer">
-                    <input type="radio" name="unhas_quebradicas" value="nao" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                    <input type="radio" name="unhas_quebradicas" value="nao" class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                     <span class="text-xs text-gray-600">Nao</span>
                   </label>
                 </div>
@@ -1007,11 +1007,11 @@
                 <span class="text-sm text-gray-700">Acne</span>
                 <div class="flex gap-3">
                   <label class="flex items-center gap-1 cursor-pointer">
-                    <input type="radio" name="acne" value="sim" required class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                    <input type="radio" name="acne" value="sim" required class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                     <span class="text-xs text-gray-600">Sim</span>
                   </label>
                   <label class="flex items-center gap-1 cursor-pointer">
-                    <input type="radio" name="acne" value="nao" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                    <input type="radio" name="acne" value="nao" class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                     <span class="text-xs text-gray-600">Nao</span>
                   </label>
                 </div>
@@ -1025,7 +1025,7 @@
         <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
           &larr; Voltar
         </button>
-        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition-colors text-sm">
           Proximo &rarr;
         </button>
       </div>
@@ -1037,7 +1037,7 @@
     <div class="step step-hidden" data-step="8">
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">9</div>
+          <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-700 font-bold text-sm">9</div>
           <h2 class="text-xl font-bold text-gray-900">Recordatorio Alimentar</h2>
           <span class="text-xs px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full">Dieta Atual</span>
         </div>
@@ -1051,16 +1051,16 @@
           <!-- Meal 1 -->
           <div class="recordatorio-row bg-gray-50 rounded-xl p-4" data-meal="1">
             <div class="flex items-center gap-3 mb-2">
-              <span class="text-sm font-bold text-emerald-700">Refeicao 1</span>
+              <span class="text-sm font-bold text-orange-700">Refeicao 1</span>
             </div>
             <div class="flex gap-3">
               <div class="w-24 flex-shrink-0">
                 <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="recordatorio_1_hora" placeholder="07:00"
-                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
               </div>
               <div class="flex-1">
                 <input type="text" name="recordatorio_1_desc" placeholder="2 ovos mexidos, pao integral, cafe com leite"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
               </div>
             </div>
           </div>
@@ -1068,16 +1068,16 @@
           <!-- Meal 2 -->
           <div class="recordatorio-row bg-gray-50 rounded-xl p-4" data-meal="2">
             <div class="flex items-center gap-3 mb-2">
-              <span class="text-sm font-bold text-emerald-700">Refeicao 2</span>
+              <span class="text-sm font-bold text-orange-700">Refeicao 2</span>
             </div>
             <div class="flex gap-3">
               <div class="w-24 flex-shrink-0">
                 <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="recordatorio_2_hora" placeholder="10:00"
-                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
               </div>
               <div class="flex-1">
                 <input type="text" name="recordatorio_2_desc" placeholder="Fruta + iogurte natural"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
               </div>
             </div>
           </div>
@@ -1085,16 +1085,16 @@
           <!-- Meal 3 -->
           <div class="recordatorio-row bg-gray-50 rounded-xl p-4" data-meal="3">
             <div class="flex items-center gap-3 mb-2">
-              <span class="text-sm font-bold text-emerald-700">Refeicao 3</span>
+              <span class="text-sm font-bold text-orange-700">Refeicao 3</span>
             </div>
             <div class="flex gap-3">
               <div class="w-24 flex-shrink-0">
                 <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="recordatorio_3_hora" placeholder="12:30"
-                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
               </div>
               <div class="flex-1">
                 <input type="text" name="recordatorio_3_desc" placeholder="Arroz, feijao, frango grelhado, salada"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
               </div>
             </div>
           </div>
@@ -1102,16 +1102,16 @@
           <!-- Meal 4 -->
           <div class="recordatorio-row bg-gray-50 rounded-xl p-4" data-meal="4">
             <div class="flex items-center gap-3 mb-2">
-              <span class="text-sm font-bold text-emerald-700">Refeicao 4</span>
+              <span class="text-sm font-bold text-orange-700">Refeicao 4</span>
             </div>
             <div class="flex gap-3">
               <div class="w-24 flex-shrink-0">
                 <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="recordatorio_4_hora" placeholder="16:00"
-                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
               </div>
               <div class="flex-1">
                 <input type="text" name="recordatorio_4_desc" placeholder="Lanche da tarde"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
               </div>
             </div>
           </div>
@@ -1119,16 +1119,16 @@
           <!-- Meal 5 -->
           <div class="recordatorio-row bg-gray-50 rounded-xl p-4" data-meal="5">
             <div class="flex items-center gap-3 mb-2">
-              <span class="text-sm font-bold text-emerald-700">Refeicao 5</span>
+              <span class="text-sm font-bold text-orange-700">Refeicao 5</span>
             </div>
             <div class="flex gap-3">
               <div class="w-24 flex-shrink-0">
                 <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="recordatorio_5_hora" placeholder="19:30"
-                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
               </div>
               <div class="flex-1">
                 <input type="text" name="recordatorio_5_desc" placeholder="Jantar"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
               </div>
             </div>
           </div>
@@ -1136,23 +1136,23 @@
           <!-- Meal 6 (hidden by default) -->
           <div class="recordatorio-row bg-gray-50 rounded-xl p-4 hidden" data-meal="6">
             <div class="flex items-center gap-3 mb-2">
-              <span class="text-sm font-bold text-emerald-700">Refeicao 6</span>
+              <span class="text-sm font-bold text-orange-700">Refeicao 6</span>
             </div>
             <div class="flex gap-3">
               <div class="w-24 flex-shrink-0">
                 <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="recordatorio_6_hora"
-                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
               </div>
               <div class="flex-1">
                 <input type="text" name="recordatorio_6_desc" placeholder="Ceia / lanche noturno"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
               </div>
             </div>
           </div>
         </div>
 
         <button type="button" onclick="addRecordatorioMeal()" id="add-meal-btn"
-          class="mt-3 text-sm text-emerald-600 hover:text-emerald-800 font-medium flex items-center gap-1">
+          class="mt-3 text-sm text-orange-600 hover:text-orange-800 font-medium flex items-center gap-1">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
           Adicionar refeicao
         </button>
@@ -1162,7 +1162,7 @@
         <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
           &larr; Voltar
         </button>
-        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition-colors text-sm">
+        <button type="button" onclick="nextStep()" class="px-6 py-2.5 bg-orange-600 text-white rounded-lg font-medium hover:bg-orange-700 transition-colors text-sm">
           Proximo &rarr;
         </button>
       </div>
@@ -1174,7 +1174,7 @@
     <div class="step step-hidden" data-step="9">
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
         <div class="flex items-center gap-3 mb-6">
-          <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-bold text-sm">10</div>
+          <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-700 font-bold text-sm">10</div>
           <h2 class="text-xl font-bold text-gray-900">Exames Laboratoriais</h2>
           <span class="text-xs px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">Opcional, alto impacto</span>
         </div>
@@ -1184,11 +1184,11 @@
             <label class="block text-sm font-medium text-gray-700 mb-2">Tem exames recentes (ultimos 6 meses)?</label>
             <div class="flex gap-4">
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="tem_exames" value="sim" onchange="toggleExames(true)" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                <input type="radio" name="tem_exames" value="sim" onchange="toggleExames(true)" class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Sim</span>
               </label>
               <label class="flex items-center gap-2 cursor-pointer">
-                <input type="radio" name="tem_exames" value="nao" onchange="toggleExames(false)" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                <input type="radio" name="tem_exames" value="nao" onchange="toggleExames(false)" class="w-4 h-4 text-orange-600 focus:ring-orange-500">
                 <span class="text-sm text-gray-700">Nao</span>
               </label>
             </div>
@@ -1202,14 +1202,14 @@
                 <label for="glicemia" class="block text-sm font-medium text-gray-700 mb-1">Glicemia jejum (mg/dL)</label>
                 <input type="number" id="glicemia" name="glicemia_jejum" min="40" max="500" step="1" placeholder="99"
                   oninput="flagExame(this, 100, '> 100 = pre-diabetes')"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
                 <p class="text-xs text-gray-400 mt-1 exame-flag"></p>
               </div>
               <div>
                 <label for="hba1c" class="block text-sm font-medium text-gray-700 mb-1">HbA1c (%)</label>
                 <input type="number" id="hba1c" name="hba1c" min="3" max="15" step="0.1" placeholder="5.4"
                   oninput="flagExame(this, 5.7, '> 5.7 = pre-diabetes')"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
                 <p class="text-xs text-gray-400 mt-1 exame-flag"></p>
               </div>
             </div>
@@ -1219,14 +1219,14 @@
                 <label for="homa_ir" class="block text-sm font-medium text-gray-700 mb-1">HOMA-IR</label>
                 <input type="number" id="homa_ir" name="homa_ir" min="0" max="30" step="0.1" placeholder="1.8"
                   oninput="flagExame(this, 2.5, '> 2.5 = resistencia insulinica')"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
                 <p class="text-xs text-gray-400 mt-1 exame-flag"></p>
               </div>
               <div>
                 <label for="colesterol_total" class="block text-sm font-medium text-gray-700 mb-1">Colesterol total (mg/dL)</label>
                 <input type="number" id="colesterol_total" name="colesterol_total" min="50" max="600" step="1" placeholder="190"
                   oninput="flagExame(this, 240, '> 240 = dislipidemia')"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
                 <p class="text-xs text-gray-400 mt-1 exame-flag"></p>
               </div>
             </div>
@@ -1235,14 +1235,14 @@
               <div>
                 <label for="hdl" class="block text-sm font-medium text-gray-700 mb-1">HDL (mg/dL)</label>
                 <input type="number" id="hdl" name="hdl" min="10" max="200" step="1" placeholder="55"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
                 <p class="text-xs text-gray-400 mt-1">&lt;40 (H) / &lt;50 (M) = risco</p>
               </div>
               <div>
                 <label for="ldl" class="block text-sm font-medium text-gray-700 mb-1">LDL (mg/dL)</label>
                 <input type="number" id="ldl" name="ldl" min="10" max="400" step="1" placeholder="110"
                   oninput="flagExame(this, 160, '> 160 = dislipidemia')"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
                 <p class="text-xs text-gray-400 mt-1 exame-flag"></p>
               </div>
             </div>
@@ -1252,14 +1252,14 @@
                 <label for="triglicerideos" class="block text-sm font-medium text-gray-700 mb-1">Triglicerideos (mg/dL)</label>
                 <input type="number" id="triglicerideos" name="triglicerideos" min="20" max="1000" step="1" placeholder="120"
                   oninput="flagExame(this, 150, '> 150 = risco')"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
                 <p class="text-xs text-gray-400 mt-1 exame-flag"></p>
               </div>
               <div>
                 <label for="tsh" class="block text-sm font-medium text-gray-700 mb-1">TSH (mUI/L)</label>
                 <input type="number" id="tsh" name="tsh" min="0" max="100" step="0.01" placeholder="2.5"
                   oninput="flagExame(this, 4.5, '> 4.5 = hipotireoidismo')"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
                 <p class="text-xs text-gray-400 mt-1 exame-flag"></p>
               </div>
             </div>
@@ -1268,13 +1268,13 @@
               <div>
                 <label for="t4_livre" class="block text-sm font-medium text-gray-700 mb-1">T4 livre (ng/dL)</label>
                 <input type="number" id="t4_livre" name="t4_livre" min="0" max="10" step="0.01" placeholder="1.2"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
                 <p class="text-xs text-gray-400 mt-1">Analisar em contexto com TSH</p>
               </div>
               <div>
                 <label for="testosterona" class="block text-sm font-medium text-gray-700 mb-1">Testosterona total (ng/dL)</label>
                 <input type="number" id="testosterona" name="testosterona_total" min="0" max="2000" step="1" placeholder="500"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
                 <p class="text-xs text-gray-400 mt-1">Referencia varia por sexo e idade</p>
               </div>
             </div>
@@ -1283,13 +1283,13 @@
               <div>
                 <label for="vitamina_d" class="block text-sm font-medium text-gray-700 mb-1">Vitamina D (ng/mL)</label>
                 <input type="number" id="vitamina_d" name="vitamina_d" min="0" max="200" step="0.1" placeholder="32"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
                 <p class="text-xs text-gray-400 mt-1" id="vitd-flag">&lt;20 = deficiencia</p>
               </div>
               <div>
                 <label for="ferritina" class="block text-sm font-medium text-gray-700 mb-1">Ferritina (ng/mL)</label>
                 <input type="number" id="ferritina" name="ferritina" min="0" max="2000" step="1" placeholder="80"
-                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                  class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
                 <p class="text-xs text-gray-400 mt-1" id="ferritina-flag">&lt;30 = baixa reserva</p>
               </div>
             </div>
@@ -1309,7 +1309,7 @@
         <button type="button" onclick="prevStep()" class="px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors text-sm">
           &larr; Voltar
         </button>
-        <button type="submit" id="submit-btn" class="px-8 py-3 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 transition-colors text-base shadow-lg shadow-emerald-200">
+        <button type="submit" id="submit-btn" class="px-8 py-3 bg-orange-600 text-white rounded-xl font-bold hover:bg-orange-700 transition-colors text-base shadow-lg shadow-orange-200">
           Enviar Anamnese
         </button>
       </div>
@@ -1322,8 +1322,8 @@
     <div class="bg-white rounded-2xl p-8 max-w-md w-full text-center shadow-2xl">
       <!-- Success state -->
       <div id="submit-success" style="display:none">
-        <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
         </div>
         <h3 class="text-xl font-bold text-gray-900 mb-2">Anamnese enviada com sucesso!</h3>
         <p class="text-sm text-gray-500">Entrarei em Contato em Breve. Bem-vindo ao time.</p>
@@ -1341,7 +1341,7 @@
       </div>
       <!-- Loading state -->
       <div id="submit-loading">
-        <div class="w-16 h-16 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin mx-auto mb-4"></div>
+        <div class="w-16 h-16 border-4 border-orange-200 border-t-orange-600 rounded-full animate-spin mx-auto mb-4"></div>
         <h3 class="text-lg font-bold text-gray-900">Enviando sua anamnese...</h3>
       </div>
     </div>
@@ -1381,9 +1381,9 @@
       document.querySelectorAll('.progress-step').forEach((btn, i) => {
         if (i <= step) {
           btn.classList.remove('bg-gray-200', 'text-gray-600');
-          btn.classList.add('bg-emerald-600', 'text-white');
+          btn.classList.add('bg-orange-600', 'text-white');
         } else {
-          btn.classList.remove('bg-emerald-600', 'text-white');
+          btn.classList.remove('bg-orange-600', 'text-white');
           btn.classList.add('bg-gray-200', 'text-gray-600');
         }
       });
@@ -1428,14 +1428,14 @@
       card.dataset.activity = String(n);
       card.innerHTML = `
         <div class="flex items-center justify-between mb-3">
-          <span class="text-sm font-bold text-emerald-700">Atividade ${n}</span>
+          <span class="text-sm font-bold text-orange-700">Atividade ${n}</span>
           <button type="button" onclick="removeActivity(this)" class="text-xs text-red-400 hover:text-red-600 font-medium">Remover</button>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-medium text-gray-600 mb-1">Modalidade *</label>
             <select name="atividade_${n}_modalidade"
-              class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+              class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
               <option value="">Selecione...</option>
               <option value="musculacao">Musculacao</option>
               <option value="corrida">Corrida</option>
@@ -1454,7 +1454,7 @@
           <div>
             <label class="block text-xs font-medium text-gray-600 mb-1">Frequencia semanal *</label>
             <select name="atividade_${n}_frequencia"
-              class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+              class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
               <option value="">Selecione...</option>
               <option value="1x">1x</option>
               <option value="2x">2x</option>
@@ -1468,7 +1468,7 @@
           <div>
             <label class="block text-xs font-medium text-gray-600 mb-1">Duracao</label>
             <select name="atividade_${n}_duracao"
-              class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm bg-white">
+              class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm bg-white">
               <option value="">Selecione...</option>
               <option value="30min">30 min</option>
               <option value="45min">45 min</option>
@@ -1481,7 +1481,7 @@
           <div>
             <label class="block text-xs font-medium text-gray-600 mb-1">Horario</label>
             <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="atividade_${n}_horario" placeholder="06:00"
-              class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+              class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
           </div>
         </div>
       `;
@@ -1628,7 +1628,7 @@
         flag.className = 'text-xs text-red-500 mt-1 font-medium exame-flag';
       } else {
         flag.textContent = 'Dentro da referencia';
-        flag.className = 'text-xs text-emerald-500 mt-1 exame-flag';
+        flag.className = 'text-xs text-orange-500 mt-1 exame-flag';
       }
     }
 
@@ -1699,7 +1699,7 @@
       // Determine domain
       let domain, color, bgColor, borderColor, action, pipeline;
       if (score <= 3) {
-        domain = 'CLEAR'; color = 'text-emerald-800'; bgColor = 'bg-emerald-100'; borderColor = 'border-emerald-200';
+        domain = 'CLEAR'; color = 'text-orange-800'; bgColor = 'bg-orange-100'; borderColor = 'border-orange-200';
         action = 'Protocolo automatico Santiago';
         pipeline = 'Fases 0-4 normais';
       } else if (score <= 8) {
@@ -1767,16 +1767,16 @@
         row.dataset.meal = String(n);
         row.innerHTML = `
           <div class="flex items-center gap-3 mb-2">
-            <span class="text-sm font-bold text-emerald-700">Refeicao ${n}</span>
+            <span class="text-sm font-bold text-orange-700">Refeicao ${n}</span>
           </div>
           <div class="flex gap-3">
             <div class="w-24 flex-shrink-0">
               <input type="text" inputmode="numeric" pattern="\d{2}:\d{2}" maxlength="5" name="recordatorio_${n}_hora"
-                class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
             </div>
             <div class="flex-1">
               <input type="text" name="recordatorio_${n}_desc" placeholder="Descreva o que comeu"
-                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 text-sm">
             </div>
           </div>
         `;
