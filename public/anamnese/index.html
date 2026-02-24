@@ -40,6 +40,10 @@
       </div>
       <!-- Cynefin Badge (hidden — data only) -->
       <div id="cynefin-badge" style="display:none"></div>
+      <button type="button" onclick="fillRandomPatient()" class="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 border border-gray-200 rounded-lg text-xs font-medium text-gray-500 hover:text-orange-600 hover:border-orange-300 hover:bg-orange-50 transition-colors" title="Preencher com dados de teste">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        Gerar teste
+      </button>
     </div>
 
     <!-- Progress Bar -->
@@ -1885,6 +1889,180 @@
     document.querySelector('form').addEventListener('submit', function() {
       composeBirthDate();
     }, true);
+
+    // ═══════════════════════════════════════
+    // RANDOM PATIENT GENERATOR
+    // ═══════════════════════════════════════
+    function fillRandomPatient() {
+      const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+      const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+      const form = document.getElementById('anamnese-form');
+
+      const nomes = ['Lucas Oliveira', 'Marina Santos', 'Pedro Almeida', 'Camila Costa', 'Rafael Ferreira', 'Juliana Souza', 'Bruno Rodrigues', 'Amanda Lima', 'Thiago Pereira', 'Carolina Martins', 'Gabriel Ribeiro', 'Fernanda Araujo', 'Matheus Barbosa', 'Larissa Gomes', 'Diego Nascimento', 'Beatriz Cardoso'];
+      const profissoes = ['Engenheiro', 'Advogada', 'Professor', 'Empresario', 'Medica', 'Designer', 'Programador', 'Nutricionista', 'Personal Trainer', 'Administradora', 'Dentista', 'Arquiteto'];
+
+      const sexo = pick(['masculino', 'feminino']);
+      const nome = pick(nomes);
+      const idade = rand(20, 50);
+      const altura = sexo === 'masculino' ? rand(168, 192) : rand(155, 175);
+      const peso = sexo === 'masculino' ? rand(68, 105) : rand(52, 85);
+
+      // Helper to set value
+      function sv(name, value) {
+        const el = form.querySelector(`[name="${name}"], #${name}`);
+        if (!el) return;
+        if (el.type === 'range') {
+          el.value = value;
+          el.dispatchEvent(new Event('input', {bubbles: true}));
+        } else {
+          el.value = value;
+          el.dispatchEvent(new Event('change', {bubbles: true}));
+          el.dispatchEvent(new Event('input', {bubbles: true}));
+        }
+      }
+
+      // Helper to set radio
+      function setRadio(name, value) {
+        const radio = form.querySelector(`input[name="${name}"][value="${value}"]`);
+        if (radio) { radio.checked = true; radio.dispatchEvent(new Event('change', {bubbles: true})); }
+      }
+
+      // Helper to set checkboxes (uncheck all first, then check specified)
+      function setCheckboxes(name, values) {
+        form.querySelectorAll(`input[name="${name}"]`).forEach(cb => cb.checked = false);
+        values.forEach(v => {
+          const cb = form.querySelector(`input[name="${name}"][value="${v}"]`);
+          if (cb) cb.checked = true;
+        });
+      }
+
+      // Helper to set tags
+      function setTags(tagGroup, items) {
+        tagData[tagGroup] = items;
+        renderTags(tagGroup);
+      }
+
+      // ── BLOCO 1: Identidade ──
+      sv('nome', nome);
+      const bDay = String(rand(1, 28)).padStart(2, '0');
+      const bMonth = String(rand(1, 12)).padStart(2, '0');
+      const bYear = String(new Date().getFullYear() - idade);
+      document.getElementById('nasc_dia').value = bDay;
+      document.getElementById('nasc_mes').value = bMonth;
+      document.getElementById('nasc_ano').value = bYear;
+      document.getElementById('data_nascimento').value = `${bYear}-${bMonth}-${bDay}`;
+      setRadio('sexo_biologico', sexo);
+      sv('profissao', pick(profissoes));
+      sv('turno_trabalho', pick(['diurno', 'noturno', 'home_office']));
+      sv('email', nome.toLowerCase().replace(/ /g, '.').normalize('NFD').replace(/[\u0300-\u036f]/g, '') + '@gmail.com');
+      sv('telefone', `(${rand(11, 99)}) 9${rand(1000, 9999)}-${rand(1000, 9999)}`);
+
+      // ── BLOCO 2: Corpo ──
+      sv('altura_cm', String(altura));
+      sv('peso_kg', String(peso));
+      sv('peso_desejado_kg', String(peso + pick([-8, -5, -3, 3, 5])));
+      sv('gordura_corporal_pct', String(rand(12, 30)));
+      sv('circunferencia_abdominal_cm', String(rand(72, 100)));
+
+      // ── BLOCO 3: Objetivo ──
+      sv('objetivo_principal', pick(['emagrecimento', 'hipertrofia', 'recomposicao', 'saude_geral', 'performance']));
+      setRadio('ja_fez_dieta', pick(['sim', 'nao']));
+      const dietaFeita = form.querySelector('input[name="ja_fez_dieta"][value="sim"]').checked;
+      if (dietaFeita) {
+        toggleDietResult(true);
+        sv('resultado_dieta_anterior', pick(['funcionou_manteve', 'funcionou_voltou', 'nao_funcionou']));
+      }
+
+      // ── BLOCO 4: Saude ──
+      setCheckboxes('condicoes_metabolicas[]', pick([['nenhuma'], ['gastrite_refluxo'], ['colesterol_alto'], ['nenhuma'], ['pre_diabetes']]));
+      setCheckboxes('hormonal[]', pick([['nenhum'], ['nenhum'], ['hipotireoidismo_controlado']]));
+      setCheckboxes('saude_feminina[]', sexo === 'feminino' ? pick([['nao_se_aplica'], ['menopausa']]) : ['nao_se_aplica']);
+      setCheckboxes('psiquiatrico[]', pick([['nenhum'], ['nenhum'], ['ansiedade'], ['nenhum']]));
+      setCheckboxes('substancias[]', pick([['nenhum'], ['nenhum'], ['anticoncepcional'], ['trt_trh']]));
+      sv('medicamentos', pick(['Nenhum', 'Levotiroxina 50mcg', 'Omeprazol 20mg', 'Nenhum', 'Anticoncepcional oral']));
+      setCheckboxes('historico_familiar[]', pick([['nenhum'], ['diabetes'], ['hipertensao'], ['diabetes', 'obesidade'], ['nenhum']]));
+
+      // ── BLOCO 5: Treino ──
+      setRadio('pratica_exercicio', 'sim');
+      toggleTraining(true);
+      sv('atividade_1_modalidade', pick(['musculacao', 'crossfit', 'corrida', 'funcional', 'natacao']));
+      sv('atividade_1_frequencia', pick(['3x', '4x', '5x', '6x']));
+      sv('atividade_1_duracao', pick(['45min', '1h', '1h30']));
+      sv('atividade_1_horario', `0${rand(5, 8)}:00`);
+      sv('nivel_treino', pick(['iniciante', 'intermediario', 'avancado']));
+      sv('classificacao_atleta', pick(['recreativo', 'regular', 'competitivo_amador']));
+
+      // ── BLOCO 6: Rotina ──
+      sv('horario_acordar', `0${rand(5, 7)}:${pick(['00', '30'])}`);
+      sv('horario_dormir', `${rand(22, 23)}:${pick(['00', '30'])}`);
+      sv('qualidade_sono', String(rand(5, 9)));
+      document.getElementById('sono-value').textContent = document.getElementById('qualidade_sono').value;
+      sv('refeicoes_dia', pick(['4', '5', '6']));
+      sv('cozinha_em_casa', pick(['sempre', 'as_vezes', 'raramente']));
+      setRadio('usa_marmita', pick(['sim', 'nao']));
+      sv('come_fora', pick(['nunca', '1_2x_sem', '3_4x_sem']));
+      sv('refeicao_mais_dificil', pick(['cafe', 'lanche', 'jantar']));
+
+      // ── BLOCO 7: Preferencias ──
+      setTags('tags-ama', pick([
+        ['arroz', 'feijao', 'frango', 'ovo', 'banana'],
+        ['batata doce', 'frango', 'brocolis', 'aveia', 'morango'],
+        ['carne vermelha', 'arroz', 'macarrao', 'queijo', 'abacate'],
+        ['sushi', 'acai', 'pizza', 'sorvete', 'churrasco'],
+      ]));
+      setTags('tags-nao-gosta', pick([
+        ['berinjela', 'quiabo', 'jilo'],
+        ['beterraba', 'figado', 'chuchu'],
+        ['peixe cru', 'rucula', 'abobrinha'],
+        ['fígado', 'rim', 'rabada'],
+      ]));
+      setTags('tags-proibidos', pick([
+        ['nenhum'],
+        ['camarao'],
+        ['amendoim'],
+        ['nenhum'],
+        ['lactose'],
+      ]));
+      sv('paladar_dominante', pick(['doce', 'salgado', 'neutro']));
+      sv('tipo_leite', pick(['integral', 'desnatado', 'sem_lactose', 'nao_bebe']));
+      sv('preferencia_jantar', pick(['comida_prato', 'lanche', 'tanto_faz']));
+      sv('textura_preferida', pick(['sequinha', 'molhadinha', 'tanto_faz']));
+
+      // ── BLOCO 8: Habitos ──
+      sv('agua_dia', pick(['1_2L', '2_3L', 'mais_3L']));
+      sv('cafe_dia', pick(['1_2', '3_4', '0']));
+      sv('alcool', pick(['nunca', 'social', 'semanal']));
+      setRadio('fuma', pick(['nao', 'nao', 'nao', 'parou']));
+      sv('intestino', pick(['regular', 'constipado', 'alterna']));
+      sv('mastigacao', pick(['rapida', 'normal', 'lenta']));
+      sv('apetite', pick(['normal', 'alto', 'baixo']));
+      setRadio('queda_cabelo', pick(['nao', 'nao', 'sim']));
+      setRadio('unhas_quebradicas', pick(['nao', 'nao', 'sim']));
+      setRadio('acne', pick(['nao', 'nao', 'sim']));
+
+      // ── BLOCO 9: Recordatorio ──
+      const refeicoes = [
+        [`0${rand(6, 7)}:00`, pick(['2 ovos mexidos, pao integral, cafe preto', '1 banana com aveia e whey, cafe com leite', 'Tapioca com queijo e presunto, suco de laranja', 'Mingau de aveia com frutas'])],
+        [`${rand(9, 10)}:30`, pick(['1 maca com pasta de amendoim', '1 iogurte natural com granola', 'Mix de castanhas', 'Banana com canela'])],
+        [`12:${pick(['00', '30'])}`, pick(['Arroz, feijao, frango grelhado, salada', 'Arroz, carne moida, brocolis, batata', 'Macarrao com frango, salada', 'Arroz integral, tilapia, legumes'])],
+        [`${rand(15, 16)}:00`, pick(['Pao integral com peito de peru', 'Shake de whey com banana', 'Fruta + castanhas', 'Crepioca com frango'])],
+        [`${rand(19, 20)}:30`, pick(['Omelete 3 ovos com legumes, salada', 'Frango grelhado com batata doce', 'Sopa de legumes com frango', 'Arroz, feijao, bife, salada'])],
+      ];
+      refeicoes.forEach((r, i) => {
+        sv(`recordatorio_${i + 1}_hora`, r[0]);
+        sv(`recordatorio_${i + 1}_desc`, r[1]);
+      });
+
+      // ── BLOCO 10: Exames ──
+      setRadio('tem_exames', 'nao');
+      toggleExames(false);
+
+      // Update Cynefin
+      updateCynefin();
+
+      // Go back to step 0
+      goToStep(0);
+    }
   </script>
 
 </body>
