@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { Send, Loader2, ChevronRight, ChevronLeft, User, Activity, Stethoscope, Apple, ClipboardList, Zap, AlertCircle } from 'lucide-react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { Send, Loader2, ChevronRight, ChevronLeft, User, Activity, Stethoscope, Apple, ClipboardList, Zap, AlertCircle, Shuffle } from 'lucide-react';
 
 interface FieldError {
   field: string;
@@ -26,6 +26,170 @@ export const QuestionnaireModel2 = () => {
     if (nomeSalvo) {
       setNomePreenchido(nomeSalvo);
     }
+  }, []);
+
+  const pick = <T,>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
+  const rand = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+  const fillRandomPatient = useCallback(() => {
+    if (!formRef.current) return;
+    const form = formRef.current;
+
+    const nomes = [
+      'Lucas Oliveira', 'Marina Santos', 'Pedro Almeida', 'Camila Costa',
+      'Rafael Ferreira', 'Juliana Souza', 'Bruno Rodrigues', 'Amanda Lima',
+      'Thiago Pereira', 'Carolina Martins', 'Gabriel Ribeiro', 'Fernanda Araújo',
+      'Matheus Barbosa', 'Larissa Gomes', 'Diego Nascimento', 'Beatriz Cardoso',
+    ];
+    const profissoes = [
+      'Engenheiro(a)', 'Advogado(a)', 'Professor(a)', 'Empresário(a)',
+      'Médico(a)', 'Designer', 'Programador(a)', 'Nutricionista',
+      'Personal Trainer', 'Administrador(a)', 'Dentista', 'Arquiteto(a)',
+    ];
+    const objetivos = [
+      'Ganhar massa muscular e melhorar a composição corporal',
+      'Emagrecer 8kg mantendo massa magra',
+      'Melhorar performance nos treinos de CrossFit',
+      'Reduzir gordura abdominal e definir o corpo',
+      'Ganhar peso de forma saudável, tenho dificuldade de engordar',
+      'Preparação para competição de bodybuilding natural',
+      'Melhorar disposição e energia no dia a dia',
+      'Reeducação alimentar completa, como muito industrializado',
+    ];
+    const exerciciosOpts = [
+      'Musculação 5x/semana + cardio 3x', 'CrossFit 4x/semana',
+      'Musculação 3x/semana', 'Corrida 3x + musculação 2x',
+      'Treino funcional 4x/semana', 'Jiu-jitsu 3x + musculação 3x',
+      'Natação 2x + musculação 4x', 'Não pratico exercícios atualmente',
+    ];
+    const dificuldades = [
+      'Falta de tempo para cozinhar, acabo comendo fast food',
+      'Ansiedade me faz comer compulsivamente à noite',
+      'Não consigo manter consistência na dieta nos fins de semana',
+      'Viajo muito a trabalho e não consigo manter uma rotina',
+      'Falta de conhecimento sobre o que comer em cada refeição',
+      'Preguiça de preparar as refeições, como qualquer coisa',
+    ];
+    const doencasOpts = ['Nenhuma', 'Hipotireoidismo', 'Gastrite', 'Rinite alérgica', 'Nenhuma diagnosticada'];
+    const historicoOpts = ['Diabetes (mãe)', 'Hipertensão (pai)', 'Nenhum relevante', 'Colesterol alto (avô)', 'Câncer de mama (avó)'];
+    const medicamentosOpts = ['Nenhum', 'Levotiroxina 50mcg', 'Anticoncepcional', 'Omeprazol 20mg', 'Nenhum no momento'];
+    const dietaOpts = ['Nenhuma', 'Low carb', 'Dieta flexível', 'Nenhuma específica', 'Tentei cetogênica mas não mantive'];
+    const acompOpts = ['Nunca tive', 'Sim, há 2 anos, mas parei', 'Sim, segui por 3 meses', 'Nunca com nutricionista esportivo'];
+    const alergiasOpts = ['Nenhuma', 'Lactose', 'Nenhuma conhecida', 'Camarão', 'Glúten (sensibilidade leve)'];
+    const malOpts = ['Leite causa gases', 'Feijão dá estufamento', 'Nenhum específico', 'Frituras dão azia', 'Pimentão causa refluxo'];
+    const naoGostaOpts = ['Berinjela, quiabo, jiló', 'Beterraba, fígado', 'Chuchu, abobrinha', 'Peixe cru, frutos do mar', 'Não como fígado nem rim'];
+    const industrializadosOpts = ['Biscoito recheado, refrigerante às vezes', 'Pão de forma, requeijão', 'Pouco, só whey e barra de cereal', 'Salgadinhos, sorvete no fds', 'Quase nada'];
+    const vegetaisOpts = ['Brócolis, espinafre, couve', 'Alface, tomate, cenoura', 'Rúcula, agrião, beterraba', 'Abobrinha, vagem, chuchu', 'Como quase todos os vegetais'];
+    const foraOpts = ['Almoço no restaurante perto do trabalho', 'Quase nunca como fora', 'Janta fora 2-3x por semana', 'Só nos fins de semana'];
+    const marmitaOpts = ['Levo marmita todo dia', 'Como na rua mesmo', 'Alterno marmita e restaurante', 'Peço delivery no trabalho'];
+    const besteirasOpts = ['Chocolate à noite, 3x/semana', 'Pizza no fim de semana', 'Sorvete e biscoito quando ansioso', 'Raramente como besteira', 'Salgados de padaria quase todo dia'];
+    const dificeisOpts = ['Café da manhã, não tenho fome cedo', 'Lanche da tarde, esqueço de comer', 'Jantar, chego tarde do trabalho', 'Todas são fáceis, meu problema é quantidade'];
+    const fdsOpts = ['Muito pior, como de tudo', 'Parecida com a semana', 'Mais liberdade, churrasco e cerveja', 'Totalmente desregulada, pulo refeições', 'Saio pra comer fora, como bastante'];
+    const amaOpts = ['Arroz, feijão, bife acebolado', 'Sushi, pizza, açaí', 'Frango grelhado, batata doce, ovo', 'Lasanha, strogonoff, hambúrguer', 'Churrasco, macarrão, pão de queijo'];
+
+    const nome = pick(nomes);
+    const sexo = pick(['masculino', 'feminino']);
+    const idade = rand(20, 50);
+    const altura = sexo === 'masculino' ? rand(165, 195) : rand(155, 178);
+    const peso = sexo === 'masculino' ? rand(65, 110) : rand(50, 90);
+    const pesoDesejado = peso + pick([-8, -5, -3, 3, 5, 8]);
+    const birthYear = new Date().getFullYear() - idade;
+    const birthMonth = String(rand(1, 12)).padStart(2, '0');
+    const birthDay = String(rand(1, 28)).padStart(2, '0');
+
+    const setValue = (name: string, value: string) => {
+      const el = form.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null;
+      if (!el) return;
+      const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+        el instanceof HTMLTextAreaElement ? window.HTMLTextAreaElement.prototype :
+        el instanceof HTMLSelectElement ? window.HTMLSelectElement.prototype :
+        window.HTMLInputElement.prototype, 'value'
+      )?.set;
+      if (nativeInputValueSetter) {
+        nativeInputValueSetter.call(el, value);
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    };
+
+    // Seção 0 - Dados Pessoais
+    setValue('nome', nome);
+    setNomePreenchido(nome);
+    setValue('email', nome.toLowerCase().replace(/ /g, '.').normalize('NFD').replace(/[\u0300-\u036f]/g, '') + '@gmail.com');
+    setValue('whatsapp', `(${rand(11, 99)}) 9${rand(1000, 9999)}-${rand(1000, 9999)}`);
+    setValue('data_nascimento', `${birthYear}-${birthMonth}-${birthDay}`);
+    setValue('idade', String(idade));
+    setValue('sexo', sexo);
+    setValue('profissao', pick(profissoes));
+    setValue('altura', String(altura));
+    setValue('peso', String(peso));
+    setValue('peso_desejado', String(pesoDesejado));
+    setValue('objetivo_principal', pick(objetivos));
+
+    // Seção 1 - Hábitos
+    setValue('horario_acordar', `0${rand(5, 8)}:${pick(['00', '15', '30', '45'])}`);
+    setValue('horario_dormir', `${rand(22, 23)}:${pick(['00', '15', '30', '45'])}`);
+    setValue('horarios_variados', pick(['Não, mantenho horários fixos', 'Sim, nos fins de semana acordo mais tarde', 'Sim, trabalho em turnos variados']));
+    setValue('qualidade_sono', String(rand(4, 9)));
+    setValue('nivel_stress', String(rand(3, 8)));
+    setValue('nivel_ansiedade', String(rand(2, 8)));
+    setValue('nivel_perfeccionismo', String(rand(3, 9)));
+    setValue('nivel_imediatismo', String(rand(3, 8)));
+    setValue('disposicao_diaria', pick(['bem_disposto', 'cansaco_leve', 'cansaco_moderado']));
+    setValue('periodo_mais_disposto', pick(['manha', 'tarde', 'noite']));
+    setValue('fuma', pick(['nao', 'nao', 'nao', 'sim', 'ex_fumante']));
+    setValue('consome_alcool', pick(['nao', 'raramente', 'socialmente', 'frequentemente']));
+    setValue('detalhes_alcool', pick(['Não bebo', 'Cerveja no fim de semana, 2-3 long necks', 'Vinho 1-2x por semana', 'Social, em festas e eventos']));
+    setValue('exercicios', pick(exerciciosOpts));
+    setValue('motivos_dificuldade', pick(dificuldades));
+
+    // Seção 2 - Clínicos
+    setValue('mastigacao', pick(['lenta', 'normal', 'rapida']));
+    setValue('apetite', pick(['diminuido', 'normal', 'aumentado']));
+    setValue('habito_intestinal', pick(['diario', '2_3_dias', 'constipado']));
+    setValue('consistencia_fezes', pick(['mole', 'normal', 'endurecida']));
+    setValue('cor_urina', pick(['clara', 'levemente_amarelada', 'amarela']));
+    setValue('queda_cabelo', pick(['nao', 'nao', 'sim']));
+    setValue('unhas_quebradicas', pick(['nao', 'nao', 'sim']));
+    setValue('acne', pick(['nao', 'pouca', 'moderada']));
+    setValue('doencas', pick(doencasOpts));
+    setValue('historico_familiar', pick(historicoOpts));
+    setValue('medicamentos', pick(medicamentosOpts));
+
+    // Seção 3 - Nutricional
+    setValue('dieta_especial', pick(dietaOpts));
+    setValue('acompanhamento_anterior', pick(acompOpts));
+    setValue('alergias', pick(alergiasOpts));
+    setValue('alimentos_mal', pick(malOpts));
+    setValue('alimentos_nao_gosta', pick(naoGostaOpts));
+    setValue('industrializados', pick(industrializadosOpts));
+    setValue('vegetais_gosta', pick(vegetaisOpts));
+    setValue('refeicoes_dia', String(rand(3, 6)));
+    setValue('agua_litros', String((rand(10, 35) / 10).toFixed(1)));
+    setValue('refeicoes_fora', pick(foraOpts));
+    setValue('marmita', pick(marmitaOpts));
+    setValue('cafe', `${rand(1, 5)} xícaras`);
+    setValue('oleo', pick(['Azeite de oliva', 'Óleo de coco', 'Óleo de soja', 'Manteiga']));
+    setValue('acucar', pick(['Não uso', '1 colher', '2 colheres', 'Adoçante']));
+    setValue('paladar', pick(['doce', 'salgado']));
+    setValue('horario_mais_fome', `${rand(15, 21)}h`);
+    setValue('besteiras', pick(besteirasOpts));
+    setValue('refeicoes_dificeis', pick(dificeisOpts));
+    setValue('alimentacao_fds', pick(fdsOpts));
+    setValue('alimentos_ama', pick(amaOpts));
+
+    // Seção 4 - Recordatório
+    setValue('refeicao_1', `0${rand(6, 8)}:00 - Casa - ${pick(['2 ovos mexidos, 1 fatia pão integral, café preto', '1 banana com aveia e whey, café com leite', 'Tapioca com queijo e presunto, suco de laranja', 'Mingau de aveia com frutas, café sem açúcar'])}`);
+    setValue('refeicao_2', `${rand(9, 10)}:30 - ${pick(['Trabalho', 'Casa'])} - ${pick(['1 maçã com pasta de amendoim', '1 iogurte natural com granola', 'Mix de castanhas', 'Banana com canela'])}`);
+    setValue('refeicao_3', `12:${pick(['00', '30'])} - ${pick(['Restaurante', 'Trabalho', 'Casa'])} - ${pick(['Arroz, feijão, frango grelhado, salada verde', 'Arroz, carne moída, brócolis, batata', 'Macarrão com frango, salada de alface e tomate', 'Arroz integral, tilápia, legumes salteados'])}`);
+    setValue('refeicao_4', `${rand(15, 16)}:${pick(['00', '30'])} - ${pick(['Trabalho', 'Casa'])} - ${pick(['Pão integral com peito de peru e queijo', 'Shake de whey com banana e aveia', 'Fruta + punhado de castanhas', 'Crepioca com frango desfiado'])}`);
+    setValue('refeicao_5', `${rand(19, 20)}:${pick(['00', '30'])} - Casa - ${pick(['Omelete de 3 ovos com legumes, salada', 'Frango grelhado com batata doce e brócolis', 'Sopa de legumes com frango', 'Arroz, feijão, bife, salada variada'])}`);
+    setValue('refeicao_6', pick(['', `${rand(21, 22)}:00 - Casa - ${pick(['1 copo de leite com cacau', 'Iogurte grego com mel', 'Caseína com pasta de amendoim', ''])}`]));
+    setValue('observacoes', pick(['Nenhuma observação adicional', 'Tenho bastante pressa em ver resultados', 'Costumo treinar em jejum pela manhã', 'Quero aprender a comer melhor, estou motivado(a)', '']));
+
+    setFieldErrors([]);
+    setShowValidationError(false);
+    setActiveSection(0);
   }, []);
 
   // Campos obrigatórios por seção
@@ -345,6 +509,18 @@ export const QuestionnaireModel2 = () => {
             </div>
           </div>
         )}
+
+        {/* Botão de teste - gerar paciente aleatório */}
+        <div className="flex justify-end mb-4">
+          <button
+            type="button"
+            onClick={fillRandomPatient}
+            className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-neutral-400 hover:text-orange-400 hover:border-orange-500/30 hover:bg-orange-500/5 transition-all text-sm"
+          >
+            <Shuffle className="w-4 h-4" />
+            Gerar paciente teste
+          </button>
+        </div>
 
         <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
 
